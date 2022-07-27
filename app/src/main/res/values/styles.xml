@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="customFontActionBar" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:fontFamily">@font/montserrat_alternates_bold</item>
+        <item name="android:textSize">30sp</item>
+    </style>
+    <style name="customActionBarStyle" parent="ThemeOverlay.AppCompat.DayNight.ActionBar">
+        <item name="colorControlNormal">@color/white</item>
+    </style>
+
+    <style name="customFloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="backgroundTint">@color/orange_700</item>
+        <item name="shapeAppearanceOverlay">@style/customCorners</item>
+        <item name="tintMode">@color/white</item>
+    </style>
+
+    <style name="customCorners">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">15dp</item>
+    </style>
+
+</resources>

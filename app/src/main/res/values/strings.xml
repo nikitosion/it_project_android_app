@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Mon_project</string>
+    <string name="main_page">Главная</string>
+    <string-array name="meals">
+        <item>Салат «Айсберг»</item>
+        <item>Помидоры</item>
+        <item>Огурцы</item>
+        <item>Чеснок</item>
+    </string-array>
+    <string-array name="measurment">
+        <item>кг</item>
+        <item>унции</item>
+        <item>фунты</item>
+    </string-array>
+    <string name="main_page_label">Главная</string>
+    <string name="search_page_label">Поиск</string>
+    <string name="add_meal_page_label">Добавить</string>
+    <string name="profile_page_label">Профиль</string>
+    <string name="shopping_list_label">Список</string>
+</resources>

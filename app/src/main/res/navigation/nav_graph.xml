@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainPage">
+    <fragment
+        android:id="@+id/searchPage"
+        android:name="com.example.mon_project.SearchPage"
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_searchFragment_to_mainPage"
+            app:destination="@id/mainPage" />
+        <action
+            android:id="@+id/action_searchFragment_to_addMealPage"
+            app:destination="@id/addMealPage" />
+        <action
+            android:id="@+id/action_searchFragment_to_profilePage"
+            app:destination="@id/profilePage" />
+        <action
+            android:id="@+id/action_searchFragment_to_shoppingListPage"
+            app:destination="@id/shoppingListPage" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainPage"
+        android:name="com.example.mon_project.MainPage"
+        tools:layout="@layout/fragment_main_page">
+        <action
+            android:id="@+id/action_mainPage_to_searchFragment"
+            app:destination="@id/searchPage" />
+        <action
+            android:id="@+id/action_mainPage_to_addMealPage"
+            app:destination="@id/addMealPage" />
+        <action
+            android:id="@+id/action_mainPage_to_profilePage"
+            app:destination="@id/profilePage" />
+        <action
+            android:id="@+id/action_mainPage_to_shoppingListPage"
+            app:destination="@id/shoppingListPage" />
+    </fragment>
+    <fragment
+        android:id="@+id/addMealPage"
+        android:name="com.example.mon_project.AddMealPage"
+        tools:layout="@layout/fragment_add_food_page">
+        <action
+            android:id="@+id/action_addMealPage_to_searchFragment"
+            app:destination="@id/searchPage" />
+        <action
+            android:id="@+id/action_addMealPage_to_mainPage"
+            app:destination="@id/mainPage" />
+        <action
+            android:id="@+id/action_addMealPage_to_profilePage"
+            app:destination="@id/profilePage" />
+        <action
+            android:id="@+id/action_addMealPage_to_shoppingListPage"
+            app:destination="@id/shoppingListPage" />
+    </fragment>
+    <fragment
+        android:id="@+id/profilePage"
+        android:name="com.example.mon_project.ProfilePage"
+        tools:layout="@layout/fragment_profile_page">
+        <action
+            android:id="@+id/action_profilePage_to_addMealPage"
+            app:destination="@id/addMealPage" />
+        <action
+            android:id="@+id/action_profilePage_to_searchFragment"
+            app:destination="@id/searchPage" />
+        <action
+            android:id="@+id/action_profilePage_to_mainPage"
+            app:destination="@id/mainPage" />
+        <action
+            android:id="@+id/action_profilePage_to_shoppingListPage"
+            app:destination="@id/shoppingListPage" />
+    </fragment>
+    <fragment
+        android:id="@+id/shoppingListPage"
+        android:name="com.example.mon_project.ShoppingListPage"
+        tools:layout="@layout/fragment_shopping_list_page">
+        <action
+            android:id="@+id/action_shoppingListPage_to_profilePage"
+            app:destination="@id/profilePage" />
+        <action
+            android:id="@+id/action_shoppingListPage_to_addMealPage"
+            app:destination="@id/addMealPage" />
+        <action
+            android:id="@+id/action_shoppingListPage_to_searchFragment"
+            app:destination="@id/searchPage" />
+        <action
+            android:id="@+id/action_shoppingListPage_to_mainPage"
+            app:destination="@id/mainPage" />
+    </fragment>
+</navigation>

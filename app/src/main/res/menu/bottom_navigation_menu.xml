@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/main_page_button"
+        android:enabled="true"
+        android:icon="@drawable/ic_home"
+        android:title="Главная"/>
+    <item
+        android:id="@+id/search_page_button"
+        android:enabled="true"
+        android:icon="@drawable/ic_search"
+        android:title="Поиск"/>
+    <item
+        android:id="@+id/add_food_page_button"
+        android:enabled="true"
+        android:icon="@drawable/ic_add_circle"
+        android:title="Добавить"/>
+    <item
+        android:id="@+id/profile_page_button"
+        android:enabled="true"
+        android:icon="@drawable/ic_face"
+        android:title="Профиль"/>
+    <item
+        android:id="@+id/shopping_list_page_button"
+        android:enabled="true"
+        android:icon="@drawable/ic_format_list_numbered"
+        android:title="Список"/>
+</menu>

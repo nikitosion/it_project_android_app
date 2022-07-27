@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <Button
+        android:id="@+id/back_button"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_arrow_back_green"
+        android:text="К рецепту"
+        android:textAllCaps="false"
+        android:textFontWeight="500"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/meal_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:textFontWeight="500"
+        android:textSize="26sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/back_button"
+        tools:text="Салат «Цезарь»" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/meal_photo_card"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/meal_name">
+
+        <ImageView
+            android:id="@+id/meal_photo"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:scaleType="centerCrop"
+            tools:src="@tools:sample/backgrounds/scenic" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/comments_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="Комментарии"
+        android:textFontWeight="500"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/meal_photo_card" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:clipToPadding="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/comments_text"
+        app:layout_constraintBottom_toTopOf="@id/comment_block"
+        tools:itemCount="4"
+        tools:listitem="@layout/comment_item" />
+
+    <LinearLayout
+        android:id="@+id/comment_block"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:inputType="textMultiLine"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textColor="@color/green_700"
+            android:layout_marginEnd="8dp"/>
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="50dp"
+            android:layout_height="60dp"
+            android:drawableTint="@color/white"
+            android:backgroundTint="@color/orange_700"
+            app:cornerRadius="15dp"
+            android:drawableBottom="@drawable/ic_send_green"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

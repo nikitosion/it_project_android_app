@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:background="?attr/colorPrimary"
+    app:buttonGravity="center_vertical"
+    android:theme="@style/customActionBarStyle"
+    app:titleMargin="0dp"
+    app:titleTextAppearance="@style/customFontActionBar"
+    app:titleTextColor="@color/white"
+    tools:navigationIcon="@drawable/ic_arrow_back"
+    tools:title="Главная" />
