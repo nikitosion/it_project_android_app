@@ -1,4 +1,4 @@
-package com.example.mon_project
+package com.example.montee_project
 
 import org.junit.Test
 

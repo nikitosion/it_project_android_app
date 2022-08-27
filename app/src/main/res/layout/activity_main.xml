@@ -7,9 +7,27 @@
     android:background="@color/white"
     tools:context=".MainActivity">
 
-    <include
+    <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/myToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/customActionBarStyle"
+            app:buttonGravity="center_vertical"
+            app:titleMargin="0dp"
+            app:titleTextAppearance="@style/customFontActionBar"
+            app:titleTextColor="@color/white"
+            tools:navigationIcon="@drawable/ic_arrow_back"
+            tools:title="Главная" />
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"

@@ -6,7 +6,7 @@
     app:startDestination="@id/mainPage">
     <fragment
         android:id="@+id/searchPage"
-        android:name="com.example.mon_project.SearchPage"
+        android:name="com.example.montee_project.SearchPage"
         tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_searchFragment_to_mainPage"
@@ -23,7 +23,7 @@
     </fragment>
     <fragment
         android:id="@+id/mainPage"
-        android:name="com.example.mon_project.MainPage"
+        android:name="com.example.montee_project.MainPage"
         tools:layout="@layout/fragment_main_page">
         <action
             android:id="@+id/action_mainPage_to_searchFragment"
@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/addMealPage"
-        android:name="com.example.mon_project.AddMealPage"
+        android:name="com.example.montee_project.AddMealPage"
         tools:layout="@layout/fragment_add_food_page">
         <action
             android:id="@+id/action_addMealPage_to_searchFragment"
@@ -57,7 +57,7 @@
     </fragment>
     <fragment
         android:id="@+id/profilePage"
-        android:name="com.example.mon_project.ProfilePage"
+        android:name="com.example.montee_project.ProfilePage"
         tools:layout="@layout/fragment_profile_page">
         <action
             android:id="@+id/action_profilePage_to_addMealPage"
@@ -74,7 +74,7 @@
     </fragment>
     <fragment
         android:id="@+id/shoppingListPage"
-        android:name="com.example.mon_project.ShoppingListPage"
+        android:name="com.example.montee_project.ShoppingListPage"
         tools:layout="@layout/fragment_shopping_list_page">
         <action
             android:id="@+id/action_shoppingListPage_to_profilePage"

@@ -1,4 +1,4 @@
-package com.example.mon_project
+package com.example.montee_project
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,13 +7,14 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.mon_project.databinding.ActivityMainBinding
+import com.example.montee_project.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
-const val TAG = "MainActivityChecker"
+const val TAG = "MainActivity"
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,26 +27,29 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
 
         navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
+        // Bottom menu init
+        val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
         bottomNavigationView.setupWithNavController(navController)
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
+
+        // Toolbar init
+        val toolbar: Toolbar = findViewById(R.id.myToolbar)
         toolbar.title = getString(R.string.main_page_label)
         toolbar.navigationIcon = null
         setSupportActionBar(toolbar)
-
         setupActionBarWithNavController(navController)
 
+        // Bottom menu buttons' actions
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.main_page_button -> {
                     Log.d(TAG, supportFragmentManager.backStackEntryCount.toString())
                     if (supportFragmentManager.fragments.last() !is MainPage) {
-                        openFragment(MainPage.newInstance("", ""))
+                        openFragment(MainPage.newInstance())
                         toolbar.title = getString(R.string.main_page_label)
                     }
                     true
@@ -85,6 +89,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Navigation actions and animation of it
     private fun openFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.setCustomAnimations(

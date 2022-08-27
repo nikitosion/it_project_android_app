@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "279699162864",
+    "project_id": "montee-d8e67",
+    "storage_bucket": "montee-d8e67.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:279699162864:android:640cd93686958adde22435",
+        "android_client_info": {
+          "package_name": "com.example.montee_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "279699162864-qr6h4tv0psrq0lghnldnq2nuil63rkju.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHRCIIJ10LiPkeXQyMMBO_z2m19SejtIc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "279699162864-qr6h4tv0psrq0lghnldnq2nuil63rkju.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

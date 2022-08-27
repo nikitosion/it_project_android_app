@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Mon_project</string>
+    <string name="app_name">Montee</string>
     <string name="main_page">Главная</string>
     <string-array name="meals">
         <item>Салат «Айсберг»</item>

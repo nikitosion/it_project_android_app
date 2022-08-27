@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Mon_project" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.Montee_project" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/green_200</item>
         <item name="colorPrimaryVariant">@color/green_700</item>
