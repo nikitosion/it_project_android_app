@@ -6,16 +6,16 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.montee_project.data_classes.Meal
 
 class MealAdapter(private val mealList: List<Meal>) : RecyclerView.Adapter<MealAdapter.MealViewHolder>() {
 
-
-    class MealViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+    class MealViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val mealImage: ImageView = view.findViewById(R.id.meal_image)
         val mealName: TextView = view.findViewById(R.id.meal_name)
-        val likeButton: Button = view.findViewById(R.id.like_icon)
+        val likeButton: ImageView = view.findViewById(R.id.like_icon)
         val likeCounter: TextView = view.findViewById(R.id.likes_counter)
         val cookingTime: TextView = view.findViewById(R.id.cooking_time)
     }
@@ -24,6 +24,10 @@ class MealAdapter(private val mealList: List<Meal>) : RecyclerView.Adapter<MealA
         val layout = LayoutInflater
             .from(parent.context)
             .inflate(R.layout.meal_item, parent, false)
+
+//        val params: GridLayoutManager.LayoutParams = layout.layoutParams as GridLayoutManager.LayoutParams
+//        params.width = (parent.measuredWidth / 2) - 8
+//        layout.layoutParams = params
 
         return MealViewHolder(layout)
     }
