@@ -2,7 +2,6 @@ package com.example.montee_project
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -11,8 +10,6 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.montee_project.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 
 const val TAG = "MainActivity"
 
@@ -47,7 +44,6 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.main_page_button -> {
-                    Log.d(TAG, supportFragmentManager.backStackEntryCount.toString())
                     if (supportFragmentManager.fragments.last() !is MainPage) {
                         openFragment(MainPage.newInstance())
                         toolbar.title = getString(R.string.main_page_label)
@@ -56,14 +52,14 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.search_page_button -> {
                     if (supportFragmentManager.fragments.last() !is SearchPage) {
-                        openFragment(SearchPage.newInstance("", ""))
+                        openFragment(SearchPage.newInstance())
                         toolbar.title = getString(R.string.search_page_label)
                     }
                     true
                 }
                 R.id.add_food_page_button -> {
-                    if (supportFragmentManager.fragments.last() !is AddMealPage) {
-                        openFragment(AddMealPage.newInstance("", ""))
+                    if (supportFragmentManager.fragments.last() !is AddFoodPage) {
+                        openFragment(AddFoodPage.newInstance())
                         toolbar.title = getString(R.string.add_meal_page_label)
                     }
                     true

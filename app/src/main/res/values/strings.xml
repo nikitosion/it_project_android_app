@@ -12,6 +12,7 @@
         <item>унции</item>
         <item>фунты</item>
     </string-array>
+    <string name="search_query">Я хочу приготовить…</string>
     <string name="main_page_label">Главная</string>
     <string name="search_page_label">Поиск</string>
     <string name="add_meal_page_label">Добавить</string>

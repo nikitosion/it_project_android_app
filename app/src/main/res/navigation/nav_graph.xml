@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/addMealPage"
-        android:name="com.example.montee_project.AddMealPage"
+        android:name="com.example.montee_project.AddFoodPage"
         tools:layout="@layout/fragment_add_food_page">
         <action
             android:id="@+id/action_addMealPage_to_searchFragment"

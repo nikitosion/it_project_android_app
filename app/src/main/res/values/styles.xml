@@ -8,6 +8,12 @@
         <item name="colorControlNormal">@color/white</item>
     </style>
 
+    <style name="customSearchView" parent="Widget.AppCompat.SearchView">
+        <item name="android:textColor">@color/green_500</item>
+        <item name="android:editTextColor">@color/green_200</item>
+        <item name="android:textColorHint">#A0606C38</item>
+    </style>
+
     <style name="customFloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
         <item name="backgroundTint">@color/orange_700</item>
         <item name="shapeAppearanceOverlay">@style/customCorners</item>

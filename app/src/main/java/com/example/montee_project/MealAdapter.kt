@@ -3,14 +3,18 @@ package com.example.montee_project
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.montee_project.data_classes.Meal
 
-class MealAdapter(private val mealList: List<Meal>) : RecyclerView.Adapter<MealAdapter.MealViewHolder>() {
+class MealAdapter(private val mealList: List<Meal>) : RecyclerView.Adapter<MealAdapter.MealViewHolder>(), Filterable {
+
+    private var mealFilterList = listOf<Meal>()
+
+    init {
+        mealFilterList = mealList
+    }
 
     class MealViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val mealImage: ImageView = view.findViewById(R.id.meal_image)
@@ -33,7 +37,7 @@ class MealAdapter(private val mealList: List<Meal>) : RecyclerView.Adapter<MealA
     }
 
     override fun onBindViewHolder(holder: MealViewHolder, position: Int) {
-        val meal = mealList[position]
+        val meal = mealFilterList[position]
 
         holder.mealImage.setImageResource(R.drawable.carbonara_image)
         holder.mealName.text = meal.name
@@ -44,5 +48,32 @@ class MealAdapter(private val mealList: List<Meal>) : RecyclerView.Adapter<MealA
         }
     }
 
-    override fun getItemCount() = mealList.size
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val charSearch = constraint.toString()
+                if (charSearch.isEmpty()) {
+                    mealFilterList = ArrayList()
+                } else {
+                    val resultList = ArrayList<Meal>()
+                    for (item in mealList) {
+                        if (item.name?.lowercase()?.contains(charSearch.lowercase()) == true) {
+                            resultList.add(item)
+                        }
+                    }
+                    mealFilterList = resultList
+                }
+                val filterResults = FilterResults()
+                filterResults.values = mealFilterList
+                return filterResults
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                mealFilterList = results?.values as ArrayList<Meal>
+                notifyDataSetChanged()
+            }
+        }
+    }
+
+    override fun getItemCount() = mealFilterList.size
 }

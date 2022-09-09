@@ -16,4 +16,5 @@ data class Meal(
     val fats: Int? = null,
     val carbohydrates: Int? = null,
     val diets: List<String>? = null,
+    val tags: List<String>? = null,
     var instruction: List<InstructionStep>? = null)

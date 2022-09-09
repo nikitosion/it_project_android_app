@@ -5,18 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".SearchFragment">
+    tools:context=".SearchPage">
 
     <androidx.appcompat.widget.SearchView
-        android:id="@+id/search_view"
+        android:id="@+id/search_field"
         android:layout_width="0dp"
         android:layout_height="56dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:iconifiedByDefault="false"
-        android:queryHint="Я хочу приготовить..."
-        android:searchIcon="@drawable/ic_search_green"
+        android:backgroundTint="@color/green_700"
+        app:iconifiedByDefault="false"
+        android:theme="@style/customSearchView"
+        app:queryHint="Я хочу приготовить..."
+        app:searchIcon="@drawable/ic_search_green"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -78,9 +80,10 @@
         android:text="Фильтры"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_view" />
+        app:layout_constraintTop_toBottomOf="@id/search_field" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="16dp"
