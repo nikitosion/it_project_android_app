@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".StockFoodInformation">
+
+    <TextView
+        android:id="@+id/choice_meal_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Выберите продукт"
+        android:textColor="@color/green_700"
+        android:textFontWeight="500"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+
+        android:id="@+id/food_selector"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="16dp"
+        android:spinnerMode="dropdown"
+        app:layout_constraintTop_toBottomOf="@id/choice_meal_label" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/food_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:padding="16dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/food_selector"
+        app:shapeAppearance="@style/ShapeAppearance.MaterialComponents.MediumComponent"
+        tools:src="@tools:sample/backgrounds/scenic" />
+
+    <TextView
+        android:id="@+id/measurement_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Единицы измерения"
+        android:textColor="@color/green_500"
+        android:textFontWeight="500"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/food_photo" />
+
+    <TextView
+        android:id="@+id/measurement_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/green_700"
+        android:textFontWeight="800"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="@id/measurement_label"
+        app:layout_constraintTop_toBottomOf="@id/measurement_label"
+        tools:text="кг" />
+
+    <TextView
+        android:id="@+id/amount_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Количество"
+        android:textColor="@color/green_500"
+        android:textFontWeight="500"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/measurement_text" />
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/amount_slider"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:stepSize="0.1"
+        android:value="1"
+        android:valueFrom="0"
+        android:valueTo="10"
+        app:layout_constraintEnd_toStartOf="@id/amount_value"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/amount_text"
+        app:thumbColor="@color/orange_500" />
+
+    <TextView
+        android:id="@+id/amount_value"
+        android:layout_width="46dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:textColor="@color/green_700"
+        app:layout_constraintBottom_toBottomOf="@id/amount_slider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/amount_slider"
+        app:layout_constraintTop_toTopOf="@id/amount_slider"
+        tools:text="1000.0" />
+
+    <TextView
+        android:id="@+id/min_amount_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Минимальное количество"
+        android:textColor="@color/green_500"
+        android:textFontWeight="500"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/amount_value" />
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/min_amount_slider"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:stepSize="0.1"
+        android:value="1"
+        android:valueFrom="0"
+        android:valueTo="10"
+        app:layout_constraintEnd_toStartOf="@id/min_amount_value"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/min_amount_text"
+        app:thumbColor="@color/orange_500" />
+
+    <TextView
+        android:id="@+id/min_amount_value"
+        android:layout_width="46dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:textColor="@color/green_700"
+        app:layout_constraintBottom_toBottomOf="@id/min_amount_slider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/min_amount_slider"
+        app:layout_constraintTop_toTopOf="@id/min_amount_slider"
+        tools:text="1000.0" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/confirm_button"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/orange_500"
+        android:text="Подтвердить"
+        android:textAllCaps="false"
+        android:textSize="16dp"
+        app:cornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/min_amount_slider" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

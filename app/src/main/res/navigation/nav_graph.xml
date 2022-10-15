@@ -54,6 +54,9 @@
         <action
             android:id="@+id/action_addMealPage_to_shoppingListPage"
             app:destination="@id/shoppingListPage" />
+        <action
+            android:id="@+id/action_addMealPage_to_stockFoodInformation2"
+            app:destination="@id/stockFoodInformation" />
     </fragment>
     <fragment
         android:id="@+id/profilePage"
@@ -88,5 +91,14 @@
         <action
             android:id="@+id/action_shoppingListPage_to_mainPage"
             app:destination="@id/mainPage" />
+    </fragment>
+    <fragment
+        android:id="@+id/stockFoodInformation"
+        android:name="com.example.montee_project.StockFoodInformation"
+        android:label="fragment_stock_food_information"
+        tools:layout="@layout/fragment_stock_food_information" >
+        <action
+            android:id="@+id/action_stockFoodInformation_to_addMealPage2"
+            app:destination="@id/addMealPage" />
     </fragment>
 </navigation>

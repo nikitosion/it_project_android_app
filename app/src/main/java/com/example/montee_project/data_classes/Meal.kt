@@ -1,6 +1,5 @@
 package com.example.montee_project.data_classes
 
-import android.widget.ImageView
 
 data class Meal(
     var id: String? = null,
@@ -17,4 +16,9 @@ data class Meal(
     val carbohydrates: Int? = null,
     val diets: List<String>? = null,
     val tags: List<String>? = null,
-    var instruction: List<InstructionStep>? = null)
+    var instruction: List<InstructionStep>? = null) {
+
+    fun calculateTime() {
+
+    }
+}

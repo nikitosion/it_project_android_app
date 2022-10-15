@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Programming Projects/AndroidProjects/Mon_project/app/src/main/res/drawable/button_border.xml" value="0.1" />
         <entry key="..\:/Programming Projects/AndroidProjects/Mon_project/app/src/main/res/drawable/dotted.xml" value="0.1825" />
+        <entry key="..\:/Programming Projects/AndroidProjects/Mon_project/app/src/main/res/drawable/ic_add.xml" value="0.1955" />
         <entry key="..\:/Programming Projects/AndroidProjects/Mon_project/app/src/main/res/drawable/ic_arrow_back.xml" value="0.168" />
         <entry key="..\:/Programming Projects/AndroidProjects/Mon_project/app/src/main/res/drawable/ic_like.xml" value="0.198" />
         <entry key="..\:/Programming Projects/AndroidProjects/Mon_project/app/src/main/res/drawable/ic_menu_book_green.xml" value="0.1705" />
@@ -31,6 +32,7 @@
         <entry key="..\:/Programming Projects/AndroidProjects/Mon_project/app/src/main/res/layout/fragment_profile_page.xml" value="0.1778537836682343" />
         <entry key="..\:/Programming Projects/AndroidProjects/Mon_project/app/src/main/res/layout/fragment_search.xml" value="0.1778537836682343" />
         <entry key="..\:/Programming Projects/AndroidProjects/Mon_project/app/src/main/res/layout/fragment_shopping_list_page.xml" value="0.1778537836682343" />
+        <entry key="..\:/Programming Projects/AndroidProjects/Mon_project/app/src/main/res/layout/fragment_stock_food_information.xml" value="0.1778537836682343" />
         <entry key="..\:/Programming Projects/AndroidProjects/Mon_project/app/src/main/res/layout/ingredients_fragment.xml" value="0.1778537836682343" />
         <entry key="..\:/Programming Projects/AndroidProjects/Mon_project/app/src/main/res/layout/inredients_meal_item.xml" value="0.1778537836682343" />
         <entry key="..\:/Programming Projects/AndroidProjects/Mon_project/app/src/main/res/layout/instruction_meal_item.xml" value="0.4" />
@@ -47,6 +49,7 @@
         <entry key="..\:/Programming Projects/AndroidProjects/Mon_project/app/src/main/res/layout/shopping_list_meal_item.xml" value="0.264" />
         <entry key="..\:/Programming Projects/AndroidProjects/Mon_project/app/src/main/res/layout/shopping_list_view.xml" value="0.21666666666666667" />
         <entry key="..\:/Programming Projects/AndroidProjects/Mon_project/app/src/main/res/layout/spinner_outline.xml" value="0.215625" />
+        <entry key="..\:/Programming Projects/AndroidProjects/Mon_project/app/src/main/res/layout/stock_food_item.xml" value="0.264" />
         <entry key="..\:/Programming Projects/AndroidProjects/Mon_project/app/src/main/res/layout/stock_meal_item.xml" value="0.215625" />
         <entry key="..\:/Programming Projects/AndroidProjects/Mon_project/app/src/main/res/layout/stock_meal_view.xml" value="0.264" />
         <entry key="..\:/Programming Projects/AndroidProjects/Mon_project/app/src/main/res/layout/toolbar.xml" value="0.215625" />

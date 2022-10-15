@@ -14,10 +14,14 @@
         <item name="android:textColorHint">#A0606C38</item>
     </style>
 
-    <style name="customFloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
-        <item name="backgroundTint">@color/orange_700</item>
-        <item name="shapeAppearanceOverlay">@style/customCorners</item>
+    <style name="customButton" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/orange_500</item>
         <item name="tintMode">@color/white</item>
+    </style>
+
+    <style name="customFloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="backgroundTint">@color/orange_500</item>
+        <item name="shapeAppearanceOverlay">@style/customCorners</item>
     </style>
 
     <style name="customCorners">

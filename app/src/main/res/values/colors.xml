@@ -7,5 +7,6 @@
     <color name="orange_500">#F38731</color>
     <color name="orange_700">#F26C25</color>
     <color name="black">#130C01</color>
+    <color name="background_night_theme">#3F3E3A</color>
     <color name="white">#FFFCEC</color>
 </resources>

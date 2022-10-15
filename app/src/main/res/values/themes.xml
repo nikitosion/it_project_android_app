@@ -8,12 +8,11 @@
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/orange_200</item>
         <item name="colorSecondaryVariant">@color/orange_700</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorOnSecondary">@color/white</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="android:fontFamily">@font/font_montserrat_alternates</item>
-        <item name="floatingActionButtonStyle">@style/customFloatingActionButton</item>
         <item name="android:textColor">@color/green_700</item>
     </style>
 

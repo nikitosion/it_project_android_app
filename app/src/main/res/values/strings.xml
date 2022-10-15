@@ -15,7 +15,7 @@
     <string name="search_query">Я хочу приготовить…</string>
     <string name="main_page_label">Главная</string>
     <string name="search_page_label">Поиск</string>
-    <string name="add_meal_page_label">Добавить</string>
+    <string name="add_food_page_label">Продукты</string>
     <string name="profile_page_label">Профиль</string>
     <string name="shopping_list_label">Список</string>
 </resources>
