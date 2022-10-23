@@ -23,7 +23,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/meal_photo"
+                android:id="@+id/food_image"
                 android:layout_width="140dp"
                 android:layout_height="140dp"
                 android:scaleType="centerCrop"
@@ -40,7 +40,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/meal_name"
+                android:id="@+id/food_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -65,7 +65,7 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
-                android:id="@+id/weght_text"
+                android:id="@+id/weight_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"

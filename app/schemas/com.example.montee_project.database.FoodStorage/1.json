@@ -2,15 +2,27 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "18bd620835ce9fc997726b99226abca6",
+    "identityHash": "b0381855ecc79ffa3143386c98232a0e",
     "entities": [
       {
         "tableName": "Foods",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`food_id` TEXT NOT NULL, `minimal_amount` REAL NOT NULL, `stock_amount` REAL NOT NULL, `to_buy_amount` REAL NOT NULL, PRIMARY KEY(`food_id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`food_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `food_image` TEXT NOT NULL, `food_name` TEXT NOT NULL, `minimal_amount` REAL NOT NULL, `stock_amount` REAL NOT NULL, `to_buy_amount` REAL NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "food_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "foodImage",
+            "columnName": "food_image",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "foodName",
+            "columnName": "food_name",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -37,7 +49,7 @@
           "columnNames": [
             "food_id"
           ],
-          "autoGenerate": false
+          "autoGenerate": true
         },
         "indices": [],
         "foreignKeys": []
@@ -46,7 +58,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '18bd620835ce9fc997726b99226abca6')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b0381855ecc79ffa3143386c98232a0e')"
     ]
   }
 }

@@ -2,6 +2,7 @@ package com.example.montee_project
 
 import android.R
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,20 +10,27 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import com.example.montee_project.data_classes.Food
 import com.example.montee_project.data_classes.FoodDB
-import com.example.montee_project.data_classes.Meal
 import com.example.montee_project.database.FoodStorage
 import com.example.montee_project.databinding.FragmentStockFoodInformationBinding
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.coroutineScope
+import com.squareup.picasso.Picasso
+import io.ktor.client.*
+import io.ktor.client.call.*
+import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.client.request.*
+import io.ktor.serialization.*
+import io.ktor.serialization.gson.*
 import kotlinx.coroutines.launch
 
-class StockFoodInformation: Fragment() {
+private const val BASE_URL = "http://192.168.31.133:3000"
+private const val GET_FOODS = "$BASE_URL/foods/get_foods"
+
+
+class StockFoodInformation : Fragment() {
 
     companion object {
         fun newInstance(): StockFoodInformation {
@@ -37,7 +45,7 @@ class StockFoodInformation: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentStockFoodInformationBinding.inflate(inflater, container, false)
         // Inflate the layout for this fragment
         return binding.root
@@ -46,20 +54,33 @@ class StockFoodInformation: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val cesar = Food("pyFhlUuaNiSAKOfBK7sk", "Салат «Айсберг»", null, "кг", 0.0, 0.0, 0.0)
-        val carrot = Food("5N8t1dofc7KsqYELY3Hj", "Морковь", null, "кг", 0.0, 0.0, 0.0)
-        val spagetti = Food("I7YqEkpJgPczMl7wLZ24", "Спагетти", null, "г", 0.0, 0.0, 0.0)
-        val parmezan = Food("LKsFGePXzC526g9u8zt1", "Сыр пармезан", null, "кг", 0.0, 0.0, 0.0)
-        val pomidori = Food("wvcivYrmyy7J8RZjvSX0", "Помидоры", null, "кг", 0.0, 0.0, 0.0)
+        val client = HttpClient() {
+            install(ContentNegotiation) {
+                gson()
+            }
+        }
 
-        val foods = listOf(cesar, carrot, spagetti, parmezan, pomidori)
-
+        var adapter: ArrayAdapter<String> = ArrayAdapter(requireContext(), 0)
         val foodSpinner = binding.foodSelector
-        val adapter = ArrayAdapter(requireContext(), R.layout.simple_spinner_item, foods.map { it.name })
+        val foodImage = binding.foodImage
+
+        var foods: List<Food> = listOf()
+        lifecycleScope.launch {
+            foods =
+                try {
+                    client.get(GET_FOODS).body()
+                } catch (e: JsonConvertException) {
+                    listOf()
+                }
+            adapter =
+                ArrayAdapter(requireContext(), R.layout.simple_spinner_item, foods.map { it.name })
+            foodSpinner.adapter = adapter
+        }
+
         foodSpinner.adapter = adapter
 
         val measurementText = binding.measurementText
-        measurementText.text = foodSpinner.selectedItem.toString()
+        measurementText.text = foodSpinner.selectedItem?.toString()
 
         val amountSlider = binding.amountSlider
         val amountValue = binding.amountValue
@@ -74,21 +95,32 @@ class StockFoodInformation: Fragment() {
         minAmountSlider.valueTo = 10F
         minAmountValue.text = amountSlider.value.toString()
 
-        amountSlider.addOnChangeListener { _, value, _ -> amountValue.text = value.toString()}
+        amountSlider.addOnChangeListener { _, value, _ -> amountValue.text = value.toString() }
 
-        minAmountSlider.addOnChangeListener { _, value, _ -> minAmountValue.text = value.toString()}
+        minAmountSlider.addOnChangeListener { _, value, _ ->
+            minAmountValue.text = value.toString()
+        }
 
         foodSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                lifecycleScope.launch {
+                    Picasso.get().load(foods[p2].image).into(foodImage)
+                }
                 measurementText.text = foods[p2].measurement
                 if (foods[p2].measurement == "г") {
-                    amountSlider.valueFrom = 0F
-                    amountSlider.valueTo = 1000F
-                    amountSlider.value = 100F
-
-                    minAmountSlider.valueFrom = 0F
-                    minAmountSlider.valueTo = 1000F
-                    minAmountSlider.value = 100F
+                    for (i in listOf(amountSlider, minAmountSlider)) {
+                        i.valueFrom = 0F
+                        i.valueTo = 1000F
+                        i.value = 100F
+                        i.stepSize = 1F
+                    }
+                } else if (foods[p2].measurement == "шт" || foods[p2].measurement == "зубч") {
+                    for (i in listOf(amountSlider, minAmountSlider)) {
+                        i.valueFrom = 0F
+                        i.valueTo = 100F
+                        i.value = 10F
+                        i.stepSize = 1F
+                    }
                 }
             }
 
@@ -99,16 +131,34 @@ class StockFoodInformation: Fragment() {
 
         val confirmButton = binding.confirmButton
         confirmButton.setOnClickListener {
-            val foodDB = Room.databaseBuilder(requireContext(), FoodStorage::class.java, "food_database").build()
+            val foodDB =
+                Room.databaseBuilder(requireContext(), FoodStorage::class.java, "food_database")
+                    .build()
             val foodDao = foodDB.foodDao()
 
-            val text = "Confirmed\n Item ${foodSpinner.selectedItem} was created.\n Stock: ${amountValue.text} ${measurementText.text}\n Min. weight: ${minAmountValue.text} ${measurementText.text}"
-            Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
-            val addingFood = foods.find { it.name == foodSpinner.selectedItem.toString()}
-            val addingFoodDB = FoodDB(addingFood?.id.toString(), minAmountSlider.value.toDouble(), amountSlider.value.toDouble(), 0.0)
+            val addingFood = foods.find { it.name == foodSpinner.selectedItem.toString() }
             lifecycleScope.launch {
-                    foodDao.addFood(addingFoodDB)
+                val addingFoodDB = FoodDB(
+                    foodDao.getAllFoods().size + 1,
+                    addingFood?.image.toString(),
+                    foodSpinner.selectedItem.toString(),
+                    String.format("%.1f", minAmountSlider.value.toDouble()).toDouble(),
+                    String.format("%.1f", amountSlider.value.toDouble()).toDouble(),
+                    0.0
+                )
+                foodDao.addFood(addingFoodDB)
+
+                val transaction = parentFragmentManager.beginTransaction()
+                transaction.add(
+                    com.example.montee_project.R.id.nav_host_fragment,
+                    AddFoodPage.newInstance()
+                )
+                transaction.commit()
             }
+
+            val text =
+                "Confirmed\n Item ${foodSpinner.selectedItem} was created.\n Stock: ${amountValue.text} ${measurementText.text}\n Min. weight: ${minAmountValue.text} ${measurementText.text}"
+            Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
         }
     }
 }

@@ -7,6 +7,8 @@ import android.widget.*
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.montee_project.data_classes.Meal
+import com.squareup.picasso.Picasso
+import kotlin.coroutines.coroutineContext
 
 class MealAdapter(private val mealList: List<Meal>) : RecyclerView.Adapter<MealAdapter.MealViewHolder>(), Filterable {
 
@@ -38,11 +40,10 @@ class MealAdapter(private val mealList: List<Meal>) : RecyclerView.Adapter<MealA
 
     override fun onBindViewHolder(holder: MealViewHolder, position: Int) {
         val meal = mealFilterList[position]
-
-        holder.mealImage.setImageResource(R.drawable.carbonara_image)
+        Picasso.get().load(meal.image).fit().placeholder(R.drawable.carbonara_image).into(holder.mealImage)
         holder.mealName.text = meal.name
         holder.likeCounter.text = meal.likes.toString()
-        holder.cookingTime.text = meal.full_time.toString()
+        holder.cookingTime.text = "${meal.full_time.toString()} мин."
         holder.likeButton.setOnClickListener {
             /* will be implemented when Database will be connected */
         }
