@@ -1,8 +1,11 @@
 package com.example.montee_project.data_classes
 
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.Room
+import com.example.montee_project.database.FoodStorage
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.contentnegotiation.*
@@ -20,10 +23,12 @@ data class FoodDB(
     val foodImage: String,
     @ColumnInfo(name = "food_name")
     val foodName: String,
+    @ColumnInfo(name = "measurement")
+    val measurement: String,
     @ColumnInfo(name = "minimal_amount")
-    val minimalAmount: Double,
+    val minimalAmount: Int,
     @ColumnInfo(name = "stock_amount")
-    val stockAmount: Double,
+    var stockAmount: Int,
     @ColumnInfo(name = "to_buy_amount")
-    val toBuyAmount: Double
+    val toBuyAmount: Int
 )

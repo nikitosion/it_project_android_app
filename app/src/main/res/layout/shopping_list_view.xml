@@ -22,7 +22,7 @@
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="1"
             tools:itemCount="4"
-            tools:listitem="@layout/shopping_list_meal_item">
+            tools:listitem="@layout/shopping_list_food_item">
 
         </androidx.recyclerview.widget.RecyclerView>
     </ScrollView>

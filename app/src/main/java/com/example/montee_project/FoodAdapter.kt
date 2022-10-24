@@ -3,6 +3,7 @@ package com.example.montee_project
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -10,21 +11,28 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.montee_project.data_classes.Food
 import com.example.montee_project.data_classes.FoodDB
 import com.squareup.picasso.Picasso
-import io.ktor.client.*
-import io.ktor.client.call.*
-import io.ktor.client.plugins.contentnegotiation.*
-import io.ktor.client.request.*
-import io.ktor.serialization.*
-import io.ktor.serialization.gson.*
 
-class FoodAdapter (private val foodList: List<FoodDB>) : RecyclerView.Adapter<FoodAdapter.FoodViewHolder>() {
 
-    class FoodViewHolder (view: View) : RecyclerView.ViewHolder(view) {
+class FoodAdapter(private val foodList: List<FoodDB>, val itemClickListener: OnItemClickListener) :
+    RecyclerView.Adapter<FoodAdapter.FoodViewHolder>() {
+
+    class FoodViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        fun bind(foodDB: FoodDB, itemClickListener: OnItemClickListener) {
+            Picasso.get().load(foodDB.foodImage).into(foodImage)
+            foodName.text = foodDB.foodName
+            weightText.text = "${foodDB.stockAmount} ${foodDB.measurement}"
+            minText.text =  "Мин.: ${foodDB.minimalAmount}"
+
+            itemView.setOnClickListener {
+                itemClickListener.onClick(foodDB)
+            }
+        }
+
+
         val foodImage: ImageView = view.findViewById(R.id.food_image)
         val foodName: TextView = view.findViewById(R.id.food_name)
         val weightText: TextView = view.findViewById(R.id.weight_text)
-        val minusButton: Button = view.findViewById(R.id.minus_button)
-        val plusButton: Button = view.findViewById(R.id.plus_button)
+        val minText: TextView = view.findViewById(R.id.min_amount)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodViewHolder {
@@ -39,15 +47,15 @@ class FoodAdapter (private val foodList: List<FoodDB>) : RecyclerView.Adapter<Fo
         val foodDB = foodList[position]
 
         Picasso.get().load(foodDB.foodImage).into(holder.foodImage)
-//        holder.foodImage.setImageResource(R.drawable.salat)
         holder.foodName.text = foodDB.foodName
-        holder.weightText.text = foodDB.stockAmount.toString()
-        holder.minusButton.setOnClickListener {
-            /* minus weight */
-        }
-        holder.plusButton.setOnClickListener {
-            /* plus weight */
-        }
+        holder.weightText.text = "${foodDB.stockAmount} ${foodDB.measurement}"
+        holder.minText.text = "Мин.: ${foodDB.minimalAmount}"
+
+        holder.bind(foodDB, itemClickListener)
+    }
+
+    class OnItemClickListener(val clickListener: (food: FoodDB) -> Unit) {
+        fun onClick(food: FoodDB) = clickListener(food)
     }
 
     override fun getItemCount(): Int = foodList.size

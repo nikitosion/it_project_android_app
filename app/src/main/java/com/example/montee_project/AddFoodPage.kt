@@ -62,7 +62,12 @@ class AddFoodPage : Fragment() {
         lifecycleScope.launch {
             foodsDB = foodDao.getAllFoods()
             Log.d(TAG, foodsDB.toString())
-            foodList.adapter = FoodAdapter(foodsDB)
+            foodList.adapter = FoodAdapter(foodsDB.filter { it.stockAmount > 0 }, FoodAdapter.OnItemClickListener { food ->
+                val transaction = parentFragmentManager.beginTransaction()
+                transaction.add(R.id.nav_host_fragment, StockFoodInformation.newInstance(food.foodName))
+                transaction.addToBackStack(null)
+                transaction.commit()
+            })
         }
     }
 }

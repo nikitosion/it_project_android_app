@@ -21,7 +21,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
-
         android:id="@+id/food_selector"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -80,7 +79,7 @@
         app:layout_constraintTop_toBottomOf="@id/measurement_text" />
 
     <com.google.android.material.slider.Slider
-        android:id="@+id/amount_slider"
+        android:id="@+id/in_stock_amount_slider"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -100,10 +99,10 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:textColor="@color/green_700"
-        app:layout_constraintBottom_toBottomOf="@id/amount_slider"
+        app:layout_constraintBottom_toBottomOf="@id/in_stock_amount_slider"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/amount_slider"
-        app:layout_constraintTop_toTopOf="@id/amount_slider"
+        app:layout_constraintStart_toEndOf="@id/in_stock_amount_slider"
+        app:layout_constraintTop_toTopOf="@id/in_stock_amount_slider"
         tools:text="1000.0" />
 
     <TextView

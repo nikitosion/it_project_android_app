@@ -244,6 +244,27 @@ class MainPage : Fragment() {
                 meals.filter { it.tags?.contains("month") ?: false }.sortedByDescending { it.likes }
                     .take(6)
             listOfMonthMeal.adapter = MealAdapter(monthMealsItems)
+
+            val listOfMorningMeal: RecyclerView = binding.listOfMorningMeal
+            listOfMorningMeal.layoutManager = GridLayoutManager(requireContext(), 2)
+            val morningMealItems =
+                meals.filter { it.tags?.contains("morning") ?: false }.sortedByDescending { it.likes }
+                    .take(6)
+            listOfMorningMeal.adapter = MealAdapter(morningMealItems)
+
+            val listOfInterestingMeal: RecyclerView = binding.listOfInterestingMeals
+            listOfInterestingMeal.layoutManager = GridLayoutManager(requireContext(), 2)
+            val interestingMealItems =
+                meals.filter { it.tags?.contains("interesting") ?: false }.sortedByDescending { it.likes }
+                    .take(6)
+            listOfInterestingMeal.adapter = MealAdapter(interestingMealItems)
+
+            val listOfSeasonsMeal: RecyclerView = binding.listOfSeasonsMeal
+            listOfSeasonsMeal.layoutManager = GridLayoutManager(requireContext(), 2)
+            val seasonMealItems =
+                meals.filter { it.tags?.contains("season") ?: false }.sortedByDescending { it.likes }
+                    .take(6)
+            listOfSeasonsMeal.adapter = MealAdapter(seasonMealItems)
         }
     }
 

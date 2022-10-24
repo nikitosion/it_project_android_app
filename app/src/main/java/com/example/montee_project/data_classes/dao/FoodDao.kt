@@ -12,4 +12,6 @@ interface FoodDao {
 
     @Query("SELECT * FROM foods")
     suspend fun getAllFoods(): List<FoodDB>
+
+    @Update fun plusMinusWeightFood(food: FoodDB)
 }

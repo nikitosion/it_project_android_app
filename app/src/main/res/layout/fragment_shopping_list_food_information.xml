@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/white">
+    android:background="@color/white"
+    tools:context=".ShoppingListFoodInformation">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -13,9 +14,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="parent"
-        android:paddingTop="95dp"
-        android:paddingBottom="95dp"
         android:clipToPadding="false"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,23 +36,22 @@
                 app:layout_constraintStart_toStartOf="parent"/>
 
             <Spinner
-                android:id="@+id/auto_complete_meal"
+                android:id="@+id/food_selector"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_margin="16dp"
-                android:entries="@array/meals"
                 android:spinnerMode="dropdown"
                 app:layout_constraintTop_toBottomOf="@id/choice_meal_label" />
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/meal_photo"
-                android:layout_width="wrap_content"
+                android:id="@+id/food_image"
+                android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:padding="16dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/auto_complete_meal"
+                app:layout_constraintTop_toBottomOf="@id/food_selector"
                 app:shapeAppearance="@style/ShapeAppearance.MaterialComponents.MediumComponent"
                 tools:src="@tools:sample/backgrounds/scenic" />
 
@@ -66,7 +65,7 @@
                 android:textFontWeight="500"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/meal_photo" />
+                app:layout_constraintTop_toBottomOf="@id/food_image" />
 
             <ImageView
                 android:id="@+id/fridge_picture"
@@ -77,13 +76,14 @@
                 android:src="@drawable/ic_fridge_green"
                 android:layout_margin="12dp"/>
             <TextView
+                android:id="@+id/stock_amount_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toEndOf="@id/fridge_picture"
                 app:layout_constraintTop_toTopOf="@id/fridge_picture"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@id/fridge_picture"
-                tools:text="0.1кг"/>
+                tools:text="+0.1кг"/>
 
             <TextView
                 android:id="@+id/max_amount"
@@ -91,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Требуемое количество"
+                android:text="Требуется купить"
                 android:textColor="@color/green_500"
                 android:textFontWeight="500"
                 android:textSize="20sp"
@@ -99,7 +99,7 @@
                 app:layout_constraintTop_toBottomOf="@id/fridge_picture" />
 
             <com.google.android.material.slider.Slider
-                android:id="@+id/amount_slider"
+                android:id="@+id/to_buy_amount_slider"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -107,23 +107,24 @@
                 android:value="10"
                 android:valueFrom="0"
                 android:valueTo="100"
-                app:layout_constraintEnd_toStartOf="@id/amount_text"
+                app:layout_constraintEnd_toStartOf="@id/to_buy_amount_value"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/max_amount"
                 app:thumbColor="@color/orange_700" />
 
             <TextView
-                android:id="@+id/amount_text"
-                android:layout_width="wrap_content"
+                android:id="@+id/to_buy_amount_value"
+                android:layout_width="46dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                app:layout_constraintBottom_toBottomOf="@id/amount_slider"
+                app:layout_constraintBottom_toBottomOf="@id/to_buy_amount_slider"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/amount_slider"
-                app:layout_constraintTop_toTopOf="@id/amount_slider"
-                tools:text="0.5кг" />
+                app:layout_constraintStart_toEndOf="@id/to_buy_amount_slider"
+                app:layout_constraintTop_toTopOf="@id/to_buy_amount_slider"
+                tools:text="1000.0"  />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/confirm_button"
                 android:layout_width="wrap_content"
                 android:layout_height="56dp"
                 android:layout_margin="16dp"
@@ -133,21 +134,8 @@
                 android:textSize="16dp"
                 app:cornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/amount_slider" />
+                app:layout_constraintTop_toBottomOf="@id/to_buy_amount_slider" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
-
-    <include
-        android:id="@+id/bottom_navigation"
-        layout="@layout/bottom_appbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -39,6 +39,22 @@ class SearchPage : Fragment() {
         val searchView = binding.searchField
         val searchList = binding.searchList
 
+
+//        searchList.layoutManager = GridLayoutManager(requireContext(), 2)
+//        val adapter = MealAdapter(meals)
+//        searchList.adapter = adapter
+//
+//        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+//            override fun onQueryTextChange(newText: String?): Boolean {
+//                adapter.filter.filter(newText)
+//                return false
+//            }
+//
+//            override fun onQueryTextSubmit(query: String?): Boolean {
+//                return false
+//            }
+//        })
+
 //        val meal_carbonara = Meal(
 //            "1", "Карбонара", null, 30, "лёгкая",
 //            1031, 104,

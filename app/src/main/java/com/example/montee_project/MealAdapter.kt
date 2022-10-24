@@ -40,7 +40,7 @@ class MealAdapter(private val mealList: List<Meal>) : RecyclerView.Adapter<MealA
 
     override fun onBindViewHolder(holder: MealViewHolder, position: Int) {
         val meal = mealFilterList[position]
-        Picasso.get().load(meal.image).fit().placeholder(R.drawable.carbonara_image).into(holder.mealImage)
+        Picasso.get().load(meal.image).fit().centerCrop().placeholder(R.drawable.carbonara_image).into(holder.mealImage)
         holder.mealName.text = meal.name
         holder.likeCounter.text = meal.likes.toString()
         holder.cookingTime.text = "${meal.full_time.toString()} мин."

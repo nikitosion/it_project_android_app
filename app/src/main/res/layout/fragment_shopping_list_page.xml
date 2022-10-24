@@ -16,6 +16,7 @@
         app:layout_constraintWidth_max="450dp">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/food_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -24,13 +25,13 @@
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="1"
             tools:itemCount="4"
-            tools:listitem="@layout/shopping_list_meal_item">
+            tools:listitem="@layout/shopping_list_food_item">
 
         </androidx.recyclerview.widget.RecyclerView>
     </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_meal_button"
+        android:id="@+id/add_food_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"

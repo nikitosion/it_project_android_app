@@ -14,7 +14,7 @@
         android:layout_gravity="center">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/stock_meal_photo_card"
+            android:id="@+id/stock_food_photo_card"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cardCornerRadius="20dp"
@@ -22,7 +22,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/meal_photo"
+                android:id="@+id/food_image"
                 android:layout_width="140dp"
                 android:layout_height="140dp"
                 android:scaleType="centerCrop"
@@ -35,11 +35,11 @@
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/stock_meal_photo_card"
+            app:layout_constraintStart_toEndOf="@id/stock_food_photo_card"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/meal_name"
+                android:id="@+id/food_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -55,10 +55,11 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/ic_shopping_basket_green"
-                app:layout_constraintStart_toStartOf="@id/meal_name"
-                app:layout_constraintTop_toBottomOf="@id/meal_name"
+                app:layout_constraintStart_toStartOf="@id/food_name"
+                app:layout_constraintTop_toBottomOf="@id/food_name"
                 app:layout_constraintBottom_toTopOf="@id/bought_button" />
             <TextView
+                android:id="@+id/need_to_buy_text"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 tools:text="0.3кг"

@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "b0381855ecc79ffa3143386c98232a0e",
+    "identityHash": "11160d984a3b2b93bc8fa00a392ba965",
     "entities": [
       {
         "tableName": "Foods",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`food_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `food_image` TEXT NOT NULL, `food_name` TEXT NOT NULL, `minimal_amount` REAL NOT NULL, `stock_amount` REAL NOT NULL, `to_buy_amount` REAL NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`food_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `food_image` TEXT NOT NULL, `food_name` TEXT NOT NULL, `measurement` TEXT NOT NULL, `minimal_amount` INTEGER NOT NULL, `stock_amount` INTEGER NOT NULL, `to_buy_amount` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -27,21 +27,27 @@
             "notNull": true
           },
           {
+            "fieldPath": "measurement",
+            "columnName": "measurement",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
             "fieldPath": "minimalAmount",
             "columnName": "minimal_amount",
-            "affinity": "REAL",
+            "affinity": "INTEGER",
             "notNull": true
           },
           {
             "fieldPath": "stockAmount",
             "columnName": "stock_amount",
-            "affinity": "REAL",
+            "affinity": "INTEGER",
             "notNull": true
           },
           {
             "fieldPath": "toBuyAmount",
             "columnName": "to_buy_amount",
-            "affinity": "REAL",
+            "affinity": "INTEGER",
             "notNull": true
           }
         ],
@@ -58,7 +64,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b0381855ecc79ffa3143386c98232a0e')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '11160d984a3b2b93bc8fa00a392ba965')"
     ]
   }
 }

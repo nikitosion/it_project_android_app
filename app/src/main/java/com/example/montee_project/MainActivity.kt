@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.shopping_list_page_button -> {
                     if (supportFragmentManager.fragments.last() !is ShoppingListPage) {
-                        openFragment(ShoppingListPage.newInstance("", ""))
+                        openFragment(ShoppingListPage.newInstance())
                         toolbar.title = getString(R.string.shopping_list_label)
                     }
                     true
