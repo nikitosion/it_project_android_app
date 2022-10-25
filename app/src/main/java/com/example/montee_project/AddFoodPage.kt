@@ -34,7 +34,6 @@ class AddFoodPage : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAddFoodPageBinding.inflate(inflater, container, false)
-        // Inflate the layout for this fragment
         return binding.root
     }
 
@@ -43,31 +42,36 @@ class AddFoodPage : Fragment() {
 
         val addFoodButton = binding.addMealButton
         val foodList = binding.foodList
-
+        // По клику на кнопку "+" открывается фрагмент для редатктирования продукты
         addFoodButton.setOnClickListener {
             val transaction = parentFragmentManager.beginTransaction()
             transaction.add(R.id.nav_host_fragment, StockFoodInformation.newInstance())
             transaction.addToBackStack(null)
             transaction.commit()
         }
-
+        // Объявляется локальную базу данных
         val foodDB =
             Room.databaseBuilder(requireContext(), FoodStorage::class.java, "food_database").build()
         val foodDao = foodDB.foodDao()
 
-        var foodsDB = listOf<FoodDB>()
+        var foodsDB: List<FoodDB>
         foodList.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
+        // Загружаются продукты из удалённой базы данных
         lifecycleScope.launch {
             foodsDB = foodDao.getAllFoods()
             Log.d(TAG, foodsDB.toString())
-            foodList.adapter = FoodAdapter(foodsDB.filter { it.stockAmount > 0 }, FoodAdapter.OnItemClickListener { food ->
-                val transaction = parentFragmentManager.beginTransaction()
-                transaction.add(R.id.nav_host_fragment, StockFoodInformation.newInstance(food.foodName))
-                transaction.addToBackStack(null)
-                transaction.commit()
-            })
+            foodList.adapter = FoodAdapter(foodsDB.filter { it.stockAmount > 0 },
+                FoodAdapter.OnItemClickListener { food ->
+                    val transaction = parentFragmentManager.beginTransaction()
+                    transaction.add(
+                        R.id.nav_host_fragment,
+                        StockFoodInformation.newInstance(food.foodName)
+                    )
+                    transaction.addToBackStack(null)
+                    transaction.commit()
+                })
         }
     }
 }

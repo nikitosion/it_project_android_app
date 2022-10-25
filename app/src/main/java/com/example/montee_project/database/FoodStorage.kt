@@ -11,6 +11,6 @@ import com.example.montee_project.data_classes.dao.FoodDao
     version = 1,
     entities = [FoodDB::class],
 )
-abstract class FoodStorage: RoomDatabase() {
+abstract class FoodStorage : RoomDatabase() {
     abstract fun foodDao(): FoodDao
 }

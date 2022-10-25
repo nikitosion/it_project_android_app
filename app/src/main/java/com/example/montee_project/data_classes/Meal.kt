@@ -32,12 +32,12 @@ data class Meal(
     val tags: String? = null,
     var instruction_ids: String? = null
 ) {
-
     fun calculateTime() {
 
     }
 
-    suspend fun getIngredientsList() : List<Ingredient> {
+    // Служебная функция
+    suspend fun getIngredientsList(): List<Ingredient> {
         val client = HttpClient() {
             install(ContentNegotiation) {
                 gson()
@@ -58,7 +58,7 @@ data class Meal(
 
         return ingredients
     }
-
+    // Служебная функция
     suspend fun getInstructionStepsList() {
         val client = HttpClient() {
             install(ContentNegotiation) {

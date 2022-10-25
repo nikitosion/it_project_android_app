@@ -4,13 +4,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.montee_project.data_classes.Meal
 import com.squareup.picasso.Picasso
-import kotlin.coroutines.coroutineContext
 
-class MealAdapter(private val mealList: List<Meal>) : RecyclerView.Adapter<MealAdapter.MealViewHolder>(), Filterable {
+class MealAdapter(private val mealList: List<Meal>) :
+    RecyclerView.Adapter<MealAdapter.MealViewHolder>(), Filterable {
 
     private var mealFilterList = listOf<Meal>()
 
@@ -31,30 +30,25 @@ class MealAdapter(private val mealList: List<Meal>) : RecyclerView.Adapter<MealA
             .from(parent.context)
             .inflate(R.layout.meal_item, parent, false)
 
-//        val params: GridLayoutManager.LayoutParams = layout.layoutParams as GridLayoutManager.LayoutParams
-//        params.width = (parent.measuredWidth / 2) - 8
-//        layout.layoutParams = params
-
         return MealViewHolder(layout)
     }
 
     override fun onBindViewHolder(holder: MealViewHolder, position: Int) {
         val meal = mealFilterList[position]
-        Picasso.get().load(meal.image).fit().centerCrop().placeholder(R.drawable.carbonara_image).into(holder.mealImage)
+        Picasso.get().load(meal.image).fit().centerCrop().placeholder(R.drawable.carbonara_image)
+            .into(holder.mealImage)
         holder.mealName.text = meal.name
         holder.likeCounter.text = meal.likes.toString()
         holder.cookingTime.text = "${meal.full_time.toString()} мин."
-        holder.likeButton.setOnClickListener {
-            /* will be implemented when Database will be connected */
-        }
     }
 
+    // Фильтрация списка по названию
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val charSearch = constraint.toString()
                 if (charSearch.isEmpty()) {
-                    mealFilterList = ArrayList()
+                    mealFilterList = mealList
                 } else {
                     val resultList = ArrayList<Meal>()
                     for (item in mealList) {

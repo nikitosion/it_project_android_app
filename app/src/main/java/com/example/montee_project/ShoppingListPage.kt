@@ -23,7 +23,6 @@ class ShoppingListPage : Fragment() {
     }
 
     private var _binding: FragmentShoppingListPageBinding? = null
-
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -41,6 +40,7 @@ class ShoppingListPage : Fragment() {
         val addFoodButton = binding.addFoodButton
         val foodList = binding.foodList
 
+        // При нажатии на кнопку "+" выполняется переход на фрагмент, где редактируется продукт
         addFoodButton.setOnClickListener {
             val transaction = parentFragmentManager.beginTransaction()
             transaction.add(R.id.nav_host_fragment, ShoppingListFoodInformation.newInstance())
@@ -52,10 +52,11 @@ class ShoppingListPage : Fragment() {
             Room.databaseBuilder(requireContext(), FoodStorage::class.java, "food_database").build()
         val foodDao = foodDB.foodDao()
 
-        var foodsDB = listOf<FoodDB>()
+        var foodsDB: List<FoodDB>
         foodList.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
+        // Подгружаются продукты из локальной базы данных
         lifecycleScope.launch {
             foodsDB = foodDao.getAllFoods().filter { it.toBuyAmount > 0 }
             Log.d(TAG, foodsDB.toString())

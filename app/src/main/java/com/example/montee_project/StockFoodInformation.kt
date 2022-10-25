@@ -74,11 +74,13 @@ class StockFoodInformation : Fragment() {
                 .build()
         val foodDao = foodDB.foodDao()
 
-        val foodSpinner = binding.foodSelector // выпадающий список продуктов
-        val foodImage = binding.foodImage // картинка продукта
-        var foodsDB = listOf<FoodDB>() // продукты в наличии
+        val foodSpinner = binding.foodSelector
+        val foodImage = binding.foodImage
+        var foodsDB = listOf<FoodDB>()
 
-        var foods: List<Food> = listOf() // список всех из БД продуктов для выпадающего списка
+        var foods: List<Food> = listOf()
+
+        // Загружаем продукты из удалённой и локальной баз данных
         lifecycleScope.launch {
             foods =
                 try {
@@ -88,24 +90,29 @@ class StockFoodInformation : Fragment() {
                 }
             foodsDB = foodDao.getAllFoods().filter { it.stockAmount > 0 }
 
+            // Состовляем и применяем список для выпадающего меню
             val adapter =
                 ArrayAdapter(
                     requireContext(),
                     com.google.android.material.R.layout.support_simple_spinner_dropdown_item,
                     foods.map { it.name })
             foodSpinner.adapter = adapter
+
+            // Если был выбран опредёлнный продукт, то он автоматически выбирается
             if (recievedFoodName != null) {
                 foodSpinner.setSelection(foods.indexOf(foods.find { it.name == recievedFoodName }))
             }
         }
 
-        val measurementText = binding.measurementText // ед. изменерения продукта
+        val measurementText = binding.measurementText
         val inStockAmountSlider =
-            binding.inStockAmountSlider // слайдер количества продукта в наличии
-        val inStockAmountValue = binding.amountValue  // значение количества продукта в наличии
-        val minAmountSlider = binding.minAmountSlider // слайдер минимального количества продукта
-        val minAmountValue = binding.minAmountValue // значение минимального количества продукта
+            binding.inStockAmountSlider
+        val inStockAmountValue = binding.amountValue
+        val minAmountSlider = binding.minAmountSlider
+        val minAmountValue = binding.minAmountValue
 
+        // Если значение значения слайдреов изменяются, то изменяются тексты в TextView, отвеячающие
+        // за отображение соотв. значения
         inStockAmountSlider.addOnChangeListener { _, value, _ ->
             inStockAmountValue.text = value.toString()
         }
@@ -113,6 +120,7 @@ class StockFoodInformation : Fragment() {
             minAmountValue.text = value.toString()
         }
 
+        // При выборе продукта из выпадающего списка, подгружается иноформация про него
         foodSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
 
@@ -154,6 +162,9 @@ class StockFoodInformation : Fragment() {
             }
         }
 
+        // После нажатися кнопки "Подтвердить" либо добавляется новый продукты,
+        // если он не существовал в локаольно базе данных, либо изменяется
+        // уже существующий
         val confirmButton = binding.confirmButton
         confirmButton.setOnClickListener {
             lifecycleScope.launch {
@@ -188,15 +199,15 @@ class StockFoodInformation : Fragment() {
                 }
                 val transaction = parentFragmentManager.beginTransaction()
                 transaction.add(
-                    com.example.montee_project.R.id.nav_host_fragment,
+                    R.id.nav_host_fragment,
                     AddFoodPage.newInstance()
                 )
                 transaction.commit()
             }
-
-            val text =
-                "Confirmed\n Item ${foodSpinner.selectedItem} was created.\n Stock: ${inStockAmountValue.text} ${measurementText.text}\n Min. weight: ${minAmountValue.text} ${measurementText.text}"
-            Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
+//          Служебный вывод
+//            val text =
+//                "Confirmed\n Item ${foodSpinner.selectedItem} was created.\n Stock: ${inStockAmountValue.text} ${measurementText.text}\n Min. weight: ${minAmountValue.text} ${measurementText.text}"
+//            Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
         }
     }
 }

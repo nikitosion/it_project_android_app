@@ -20,6 +20,9 @@
         <action
             android:id="@+id/action_searchFragment_to_shoppingListPage"
             app:destination="@id/shoppingListPage" />
+        <action
+            android:id="@+id/action_searchPage_to_filtersInformation"
+            app:destination="@id/filtersInformation" />
     </fragment>
     <fragment
         android:id="@+id/mainPage"
@@ -91,6 +94,9 @@
         <action
             android:id="@+id/action_shoppingListPage_to_mainPage"
             app:destination="@id/mainPage" />
+        <action
+            android:id="@+id/action_shoppingListPage_to_shoppingListFoodInformation"
+            app:destination="@id/shoppingListFoodInformation" />
     </fragment>
     <fragment
         android:id="@+id/stockFoodInformation"
@@ -100,5 +106,23 @@
         <action
             android:id="@+id/action_stockFoodInformation_to_addMealPage2"
             app:destination="@id/addMealPage" />
+    </fragment>
+    <fragment
+        android:id="@+id/shoppingListFoodInformation"
+        android:name="com.example.montee_project.ShoppingListFoodInformation"
+        android:label="fragment_shopping_list_food_information"
+        tools:layout="@layout/fragment_shopping_list_food_information" >
+        <action
+            android:id="@+id/action_shoppingListFoodInformation_to_shoppingListPage"
+            app:destination="@id/shoppingListPage" />
+    </fragment>
+    <fragment
+        android:id="@+id/filtersInformation"
+        android:name="com.example.montee_project.FiltersInformation"
+        android:label="fragment_filters_information"
+        tools:layout="@layout/fragment_filters_information" >
+        <action
+            android:id="@+id/action_filtersInformation_to_searchPage"
+            app:destination="@id/searchPage" />
     </fragment>
 </navigation>

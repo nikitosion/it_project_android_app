@@ -38,18 +38,18 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
-        // Bottom menu init
+        // Инициализируем нижнее меню
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
         bottomNavigationView.setupWithNavController(navController)
 
-        // Toolbar init
+        // Инициализируем toolbar
         val toolbar: Toolbar = findViewById(R.id.myToolbar)
         toolbar.title = getString(R.string.main_page_label)
         toolbar.navigationIcon = null
         setSupportActionBar(toolbar)
         setupActionBarWithNavController(navController)
 
-        // Bottom menu buttons' actions
+        // Добавляем действия по нажатию к кнопкам меню
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.main_page_button -> {
@@ -94,7 +94,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // Navigation actions and animation of it
+    // Функция перехода во фрагмент и анимации
     private fun openFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.setCustomAnimations(

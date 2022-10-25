@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="16dp"
+    tools:context=".FiltersInformation">
+
+    <TextView
+        android:id="@+id/filters_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Фильтры"
+        android:textColor="@color/green_700"
+        android:textFontWeight="500"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:clipToPadding="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/filters_text"
+        app:layout_constraintWidth_max="500dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/main_meals_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Особенные блюда"
+                android:textSize="18sp" />
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2">
+
+                <CheckBox
+                    android:id="@+id/month_meals_check_box"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/green_500"
+                    android:layout_marginStart="8dp"
+                    android:text="Блюда месяца" />
+
+                <CheckBox
+                    android:id="@+id/morning_meals_check_box"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/green_500"
+                    android:layout_marginStart="8dp"
+                    android:text="Для приятного утра" />
+
+                <CheckBox
+                    android:id="@+id/interesting_meals_check_box"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/green_500"
+                    android:layout_marginStart="8dp"
+                    android:text="Интересные" />
+
+                <CheckBox
+                    android:id="@+id/season_meals_check_box"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/green_500"
+                    android:layout_marginStart="8dp"
+                    android:text="Сезонные" />
+            </GridLayout>
+
+            <TextView
+                android:id="@+id/diets_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Диеты"
+                android:textSize="18sp" />
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2">
+
+                <CheckBox
+                    android:id="@+id/vegan_check_box"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/green_500"
+                    android:layout_marginStart="8dp"
+                    android:text="Вегетарианская" />
+
+                <CheckBox
+                    android:id="@+id/sport_check_box"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/green_500"
+                    android:layout_marginStart="8dp"
+                    android:text="Спортивная" />
+            </GridLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/confirm_button"
+                android:layout_width="wrap_content"
+                android:layout_height="56dp"
+                android:layout_gravity="end"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/orange_700"
+                android:text="Подтвердить"
+                android:textAllCaps="false"
+                android:textSize="16dp"
+                app:cornerRadius="10dp" />
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

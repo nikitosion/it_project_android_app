@@ -79,6 +79,8 @@ class ShoppingListFoodInformation : Fragment() {
         var foodsDB = listOf<FoodDB>()
 
         var foods: List<Food> = listOf()
+
+        // Загружаются продукты из удалённой и локально баз данных
         lifecycleScope.launch {
             foods =
                 try {
@@ -89,26 +91,33 @@ class ShoppingListFoodInformation : Fragment() {
             Log.d("list", foods.toString())
             foodsDB = foodDao.getAllFoods().filter { it.toBuyAmount > 0 }
 
+            // Создаётся и применяется список для выпадающего меню
             val adapter =
                 ArrayAdapter(
                     requireContext(),
                     com.google.android.material.R.layout.support_simple_spinner_dropdown_item,
                     foods.map { it.name })
             foodSpinner.adapter = adapter
+
+            // Если был нажат один из элементов списка продуктов, то он автоматически выбирается
             if (recievedFoodName != null) {
                 foodSpinner.setSelection(foods.indexOf(foods.find { it.name == recievedFoodName }))
             }
         }
 
         val toBuyAmountSlider =
-            binding.toBuyAmountSlider // сладейр количества товаров, которые нужно купить
-        val toBuyAmountValue = binding.toBuyAmountValue // значение количества товаров, которые нужно купить
-        val stockAmountText = binding.stockAmountText // значение количества товара в наличии
+            binding.toBuyAmountSlider
+        val toBuyAmountValue =
+            binding.toBuyAmountValue
+        val stockAmountText = binding.stockAmountText
         stockAmountText.text = "0"
 
-        toBuyAmountSlider.addOnChangeListener { _, value, _ -> toBuyAmountValue.text = value.toString() }
+        // При изменении значения слайдера, изменяется текст TextView, отображающего значение
+        toBuyAmountSlider.addOnChangeListener { _, value, _ ->
+            toBuyAmountValue.text = value.toString()
+        }
 
-
+        // При выборе элемента из списка, подгружается и отображается информация о нём
         foodSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
 
@@ -147,6 +156,8 @@ class ShoppingListFoodInformation : Fragment() {
             }
         }
 
+        // После нажатия кнопки "Подтвердить" либо создаётся новый продукт,
+        // если его не было в базе данных, либо обновляется уже сущесвующий
         val confirmButton = binding.confirmButton
         confirmButton.setOnClickListener {
             lifecycleScope.launch {
@@ -186,10 +197,10 @@ class ShoppingListFoodInformation : Fragment() {
                 )
                 transaction.commit()
             }
-
-            val text =
-                "Confirmed\n Item ${foodSpinner.selectedItem} was created.\n Stock: ${toBuyAmountValue.text} ${stockAmountText.text}\n"
-            Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
+//          Служебный вывод
+//            val text =
+//                "Confirmed\n Item ${foodSpinner.selectedItem} was created.\n Stock: ${toBuyAmountValue.text} ${stockAmountText.text}\n"
+//            Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
         }
 
     }
