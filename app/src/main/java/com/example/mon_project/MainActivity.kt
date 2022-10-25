@@ -32,14 +32,27 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
+<<<<<<< HEAD:app/src/main/java/com/example/mon_project/MainActivity.kt
         bottomNavigationView.setupWithNavController(navController)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
+=======
+        // Инициализируем нижнее меню
+        val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
+        bottomNavigationView.setupWithNavController(navController)
+
+        // Инициализируем toolbar
+        val toolbar: Toolbar = findViewById(R.id.myToolbar)
+>>>>>>> bd20ec8 (Bug fixes. SearchPage was implemented):app/src/main/java/com/example/montee_project/MainActivity.kt
         toolbar.title = getString(R.string.main_page_label)
         toolbar.navigationIcon = null
         setSupportActionBar(toolbar)
 
         setupActionBarWithNavController(navController)
 
+<<<<<<< HEAD:app/src/main/java/com/example/mon_project/MainActivity.kt
+=======
+        // Добавляем действия по нажатию к кнопкам меню
+>>>>>>> bd20ec8 (Bug fixes. SearchPage was implemented):app/src/main/java/com/example/montee_project/MainActivity.kt
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.main_page_button -> {
@@ -85,6 +98,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+<<<<<<< HEAD:app/src/main/java/com/example/mon_project/MainActivity.kt
+=======
+    // Функция перехода во фрагмент и анимации
+>>>>>>> bd20ec8 (Bug fixes. SearchPage was implemented):app/src/main/java/com/example/montee_project/MainActivity.kt
     private fun openFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.setCustomAnimations(
