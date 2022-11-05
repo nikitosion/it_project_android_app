@@ -5,7 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".AddFoodPage">
+    tools:context=".MyFoodsPage">
+
+    <TextView
+        android:id="@+id/foods_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Ваши продукты"
+        android:textFontWeight="500"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/hint_label"
@@ -13,37 +25,31 @@
         android:layout_height="wrap_content"
         android:text="Для редактирования нажмите на продукт"
         android:textSize="12sp"
-        android:layout_margin="8dp"
         android:textColor="#AAAAAA"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@id/foods_label"
+        app:layout_constraintTop_toBottomOf="@id/foods_label" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/food_list"
+        android:id="@+id/my_foods_list"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginStart="6dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="6dp"
+        android:layout_marginEnd="16dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/hint_label"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:spanCount="1"
-        tools:itemCount="10"
-        tools:listitem="@layout/stock_food_item" />
+        tools:listitem="@layout/my_food_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_meal_button"
+        android:id="@+id/add_food_button"
+        style="@style/customFloatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:src="@drawable/ic_add"
-        style="@style/customFloatingActionButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

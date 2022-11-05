@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfilePage"
-    android:background="@color/white">
+    android:background="@color/white"
+    tools:context=".ProfilePage">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -55,22 +55,26 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="0dp"
                         android:orientation="vertical"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginLeft="16dp"
                         app:layout_constraintStart_toEndOf="@id/user_photo_card"
                         app:layout_constraintTop_toBottomOf="@id/edit_user_info_button">
 
                         <TextView
+                            android:id="@+id/user_name_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/green_700"
                             android:textSize="24sp"
-                            tools:text="Nikita Ionov" />
+                            android:textAlignment="textStart"
+                            tools:text="Nikita" />
 
                         <TextView
+                            android:id="@+id/user_email_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="#603D4E2A"
                             android:textSize="14sp"
+                            android:textAlignment="textStart"
                             tools:text="neckitionov@yandex.ru" />
                     </LinearLayout>
 
@@ -99,6 +103,7 @@
                 app:layout_constraintTop_toBottomOf="@id/profile_card">
 
                 <Button
+                    android:id="@+id/my_meal_button"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -115,6 +120,7 @@
                     android:layout_marginBottom="4dp" />
 
                 <Button
+                    android:id="@+id/my_foods_button"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -131,38 +137,7 @@
                     android:layout_marginBottom="4dp" />
 
                 <Button
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_square_foot_green"
-                    android:padding="8dp"
-                    android:text="Единицы измерения"
-                    android:textAllCaps="false"
-                    android:textSize="18sp" />
-
-                <com.google.android.material.divider.MaterialDivider
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="4dp" />
-
-                <Button
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_help_green"
-                    android:padding="8dp"
-                    android:text="О приложении"
-                    android:textAllCaps="false"
-                    android:textSize="18sp" />
-
-                <com.google.android.material.divider.MaterialDivider
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="4dp" />
-
-                <Button
+                    android:id="@+id/exit_button"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

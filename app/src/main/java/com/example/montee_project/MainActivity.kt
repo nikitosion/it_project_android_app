@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.profile_page_button -> {
                     if (supportFragmentManager.fragments.last() !is ProfilePage) {
-                        openFragment(ProfilePage.newInstance("", ""))
+                        openFragment(ProfilePage.newInstance())
                         toolbar.title = getString(R.string.profile_page_label)
                     }
                     true

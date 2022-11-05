@@ -19,7 +19,7 @@ import io.ktor.serialization.*
 import io.ktor.serialization.gson.*
 import kotlinx.coroutines.launch
 
-private const val BASE_URL = "http://192.168.31.133:3000"
+private const val BASE_URL = "http://192.168.1.44:3000"
 private const val GET_MEALS = "$BASE_URL/meals/get_meals"
 
 private const val ARG_PARAM1 = "recievedFilterTags"
@@ -72,7 +72,15 @@ class SearchPage : Fragment() {
         var meals: List<Meal> = listOf()
 
         searchList.layoutManager = GridLayoutManager(requireContext(), 2)
-        var adapter = MealAdapter(listOf())
+        var adapter = MealAdapter(listOf(), MealAdapter.OnItemClickListener {meal ->
+            val transaction = parentFragmentManager.beginTransaction()
+            transaction.add(
+                R.id.nav_host_fragment,
+                MyMealInfo.newInstance(meal.id)
+            )
+            transaction.addToBackStack(null)
+            transaction.commit()
+        })
 
         // Получаем блюда из удалённой базы данных
         lifecycleScope.launch {
@@ -98,7 +106,15 @@ class SearchPage : Fragment() {
             if (filteredMeals != listOf<Meal>()) {
                 meals = filteredMeals.toSet().toList()
             }
-            adapter = MealAdapter(meals)
+            adapter = MealAdapter(meals, MealAdapter.OnItemClickListener {meal ->
+                val transaction = parentFragmentManager.beginTransaction()
+                transaction.add(
+                    R.id.nav_host_fragment,
+                    MyMealInfo.newInstance(meal.id)
+                )
+                transaction.addToBackStack(null)
+                transaction.commit()
+            })
             searchList.adapter = adapter
         }
 

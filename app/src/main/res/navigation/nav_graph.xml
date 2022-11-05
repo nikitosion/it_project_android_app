@@ -77,6 +77,15 @@
         <action
             android:id="@+id/action_profilePage_to_shoppingListPage"
             app:destination="@id/shoppingListPage" />
+        <action
+            android:id="@+id/action_profilePage_to_loginPage"
+            app:destination="@id/loginPage" />
+        <action
+            android:id="@+id/action_profilePage_to_userInformation"
+            app:destination="@id/userInformation" />
+        <action
+            android:id="@+id/action_profilePage_to_registrationPage"
+            app:destination="@id/registrationPage" />
     </fragment>
     <fragment
         android:id="@+id/shoppingListPage"
@@ -124,5 +133,29 @@
         <action
             android:id="@+id/action_filtersInformation_to_searchPage"
             app:destination="@id/searchPage" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginPage"
+        android:name="com.example.montee_project.LoginPage"
+        android:label="LoginPage" >
+        <action
+            android:id="@+id/action_loginPage_to_profilePage"
+            app:destination="@id/profilePage" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrationPage"
+        android:name="com.example.montee_project.RegistrationPage"
+        android:label="RegistrationPage" >
+        <action
+            android:id="@+id/action_registrationPage_to_profilePage"
+            app:destination="@id/profilePage" />
+    </fragment>
+    <fragment
+        android:id="@+id/userInformation"
+        android:name="com.example.montee_project.UserInformation"
+        android:label="UserInformation" >
+        <action
+            android:id="@+id/action_userInformation_to_profilePage"
+            app:destination="@id/profilePage" />
     </fragment>
 </navigation>

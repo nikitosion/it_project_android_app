@@ -58,7 +58,7 @@ class ShoppingListPage : Fragment() {
 
         // Подгружаются продукты из локальной базы данных
         lifecycleScope.launch {
-            foodsDB = foodDao.getAllFoods().filter { it.toBuyAmount > 0 }
+            foodsDB = foodDao.getAllFoods().filter { it.toBuyAmount!! > 0 }
             Log.d(TAG, foodsDB.toString())
             foodList.adapter = ShoppingListFoodAdapter(foodsDB)
         }

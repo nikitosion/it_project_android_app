@@ -25,7 +25,7 @@ import io.ktor.serialization.*
 import io.ktor.serialization.gson.*
 import kotlinx.coroutines.launch
 
-private const val BASE_URL = "http://192.168.31.133:3000"
+private const val BASE_URL = "http://192.168.1.44:3000"
 private const val GET_FOODS = "$BASE_URL/foods/get_foods"
 
 private const val ARG_PARAM1 = "recievedFoodName"
@@ -89,7 +89,7 @@ class ShoppingListFoodInformation : Fragment() {
                     listOf()
                 }
             Log.d("list", foods.toString())
-            foodsDB = foodDao.getAllFoods().filter { it.toBuyAmount > 0 }
+            foodsDB = foodDao.getAllFoods().filter { it.toBuyAmount!! > 0 }
 
             // Создаётся и применяется список для выпадающего меню
             val adapter =
@@ -143,7 +143,7 @@ class ShoppingListFoodInformation : Fragment() {
                     toBuyAmountSlider.stepSize = 1F
                 }
                 if (stockFood != null) {
-                    toBuyAmountSlider.value = stockFood.toBuyAmount.toFloat()
+                    toBuyAmountSlider.value = stockFood.toBuyAmount!!.toFloat()
                 }
             }
 

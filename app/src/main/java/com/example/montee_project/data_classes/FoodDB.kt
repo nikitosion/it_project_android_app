@@ -18,17 +18,17 @@ import io.ktor.serialization.gson.*
 data class FoodDB(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "food_id")
-    val id: Int,
+    val id: Int? = null,
     @ColumnInfo(name = "food_image")
-    val foodImage: String,
+    val foodImage: String? = null,
     @ColumnInfo(name = "food_name")
-    val foodName: String,
+    val foodName: String? = null,
     @ColumnInfo(name = "measurement")
-    val measurement: String,
+    val measurement: String? = null,
     @ColumnInfo(name = "minimal_amount")
-    val minimalAmount: Int,
+    val minimalAmount: Int? = null,
     @ColumnInfo(name = "stock_amount")
-    var stockAmount: Int,
+    var stockAmount: Int? = null,
     @ColumnInfo(name = "to_buy_amount")
-    val toBuyAmount: Int
+    val toBuyAmount: Int? = null
 )

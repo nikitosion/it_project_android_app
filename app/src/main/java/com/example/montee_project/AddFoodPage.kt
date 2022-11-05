@@ -42,7 +42,7 @@ class AddFoodPage : Fragment() {
 
         val addFoodButton = binding.addMealButton
         val foodList = binding.foodList
-        // По клику на кнопку "+" открывается фрагмент для редатктирования продукты
+        // По клику на кнопку "+" открывается фрагмент для редатктирования продукта
         addFoodButton.setOnClickListener {
             val transaction = parentFragmentManager.beginTransaction()
             transaction.add(R.id.nav_host_fragment, StockFoodInformation.newInstance())
@@ -62,7 +62,7 @@ class AddFoodPage : Fragment() {
         lifecycleScope.launch {
             foodsDB = foodDao.getAllFoods()
             Log.d(TAG, foodsDB.toString())
-            foodList.adapter = FoodAdapter(foodsDB.filter { it.stockAmount > 0 },
+            foodList.adapter = FoodAdapter(foodsDB.filter { it.stockAmount!! > 0 },
                 FoodAdapter.OnItemClickListener { food ->
                     val transaction = parentFragmentManager.beginTransaction()
                     transaction.add(

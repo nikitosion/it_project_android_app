@@ -2,17 +2,17 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "9513e17c2d1e39af4fd0bd94423f5755",
+    "identityHash": "cf3e161868dc2e676aa429bc12ddc698",
     "entities": [
       {
-        "tableName": "Foods",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`food_id` INTEGER PRIMARY KEY AUTOINCREMENT, `food_image` TEXT, `food_name` TEXT, `measurement` TEXT, `minimal_amount` INTEGER, `stock_amount` INTEGER, `to_buy_amount` INTEGER)",
+        "tableName": "MyFoodsDB",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`food_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `food_image` TEXT, `food_name` TEXT, `measurement` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "food_id",
             "affinity": "INTEGER",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "foodImage",
@@ -31,24 +31,6 @@
             "columnName": "measurement",
             "affinity": "TEXT",
             "notNull": false
-          },
-          {
-            "fieldPath": "minimalAmount",
-            "columnName": "minimal_amount",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "stockAmount",
-            "columnName": "stock_amount",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "toBuyAmount",
-            "columnName": "to_buy_amount",
-            "affinity": "INTEGER",
-            "notNull": false
           }
         ],
         "primaryKey": {
@@ -64,7 +46,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9513e17c2d1e39af4fd0bd94423f5755')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'cf3e161868dc2e676aa429bc12ddc698')"
     ]
   }
 }

@@ -18,6 +18,8 @@
     <string name="add_food_page_label">Продукты</string>
     <string name="profile_page_label">Профиль</string>
     <string name="shopping_list_label">Список</string>
+    <string name="ingredient_item_string">%1$s • %2$d%3$s</string>
+    <string name="instruction_step_num">Шаг %1$s</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

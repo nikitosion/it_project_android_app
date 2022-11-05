@@ -1,59 +1,117 @@
 package com.example.montee_project
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
+import com.example.montee_project.data_classes.User
+import com.example.montee_project.databinding.FragmentProfilePageBinding
+import com.squareup.picasso.Picasso
+import io.ktor.client.*
+import io.ktor.client.call.*
+import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.client.request.*
+import io.ktor.serialization.*
+import io.ktor.serialization.gson.*
+import io.ktor.serialization.kotlinx.json.*
+import kotlinx.coroutines.launch
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+private const val BASE_URL = "http://192.168.1.44:3000"
+private const val GET_USER_INFO = "$BASE_URL/users/get_user_info"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ProfilePage.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ProfilePage : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    companion object {
+        fun newInstance(): ProfilePage {
+            return ProfilePage()
         }
     }
+
+    private var _binding: FragmentProfilePageBinding? = null
+    private val binding get() = _binding!!
+    private var userId: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile_page, container, false)
+        _binding = FragmentProfilePageBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ProfilePage.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ProfilePage().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val userImage = binding.userPhoto
+        val userName = binding.userNameText
+        val userEmail = binding.userEmailText
+        val editButton = binding.editUserInfoButton
+
+        val myMealButton = binding.myMealButton
+        val myFoodsButton = binding.myFoodsButton
+        val exitButton = binding.exitButton
+
+        val sharedPref = activity?.getSharedPreferences("USER_INFO", Context.MODE_PRIVATE)
+        userId = sharedPref?.getString("USER_ID", "")
+
+        val client = HttpClient {
+            install(ContentNegotiation) {
+                gson()
             }
+        }
+
+        var user: User
+
+        if (userId == null || userId == "") {
+            val transaction = parentFragmentManager.beginTransaction()
+            transaction.add(R.id.nav_host_fragment, LoginPage.newInstance())
+            transaction.commit()
+        } else {
+            lifecycleScope.launch {
+                user = try {
+                    client.get(GET_USER_INFO).body()
+                } catch (e: JsonConvertException) {
+                    User()
+                }
+                if (user.image != "") {
+                    Picasso.get().load(user.image).into(userImage)
+                }
+                userName.text = user.name
+                userEmail.text = user.email
+            }
+        }
+
+        myMealButton.setOnClickListener {
+            val transaction = parentFragmentManager.beginTransaction()
+            transaction.add(R.id.nav_host_fragment, MyMealsPage.newInstance())
+            transaction.addToBackStack(null)
+            transaction.commit()
+        }
+
+        myFoodsButton.setOnClickListener {
+            val transaction = parentFragmentManager.beginTransaction()
+            transaction.add(R.id.nav_host_fragment, MyFoodsPage.newInstance())
+            transaction.addToBackStack(null)
+            transaction.commit()
+        }
+
+        editButton.setOnClickListener {
+            val transaction = parentFragmentManager.beginTransaction()
+            transaction.add(R.id.nav_host_fragment, UserInformation.newInstance())
+            transaction.addToBackStack(null)
+            transaction.commit()
+        }
+
+        exitButton.setOnClickListener {
+            if (sharedPref != null) {
+                sharedPref.edit().remove("USER_ID").apply()
+            }
+            val transaction = parentFragmentManager.beginTransaction()
+            transaction.add(R.id.nav_host_fragment, LoginPage.newInstance())
+            transaction.commit()
+        }
     }
 }

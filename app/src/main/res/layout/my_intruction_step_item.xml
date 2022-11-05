@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/step_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Шаг 1"
+        android:textFontWeight="800"
+        android:textSize="18sp"/>
+    <TextView
+        android:id="@+id/instruction_step_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Варить на медленном огне 15 минут" />
+
+</LinearLayout>

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.montee_project.data_classes.Meal
 import com.squareup.picasso.Picasso
 
-class MealAdapter(private val mealList: List<Meal>) :
+class MealAdapter(private val mealList: List<Meal>, val itemClickListener: OnItemClickListener) :
     RecyclerView.Adapter<MealAdapter.MealViewHolder>(), Filterable {
 
     private var mealFilterList = listOf<Meal>()
@@ -18,6 +18,13 @@ class MealAdapter(private val mealList: List<Meal>) :
     }
 
     class MealViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
+        fun bind(meal: Meal, itemClickListener: OnItemClickListener) {
+            itemView.setOnClickListener {
+                itemClickListener.onClick(meal)
+            }
+        }
+
         val mealImage: ImageView = view.findViewById(R.id.meal_image)
         val mealName: TextView = view.findViewById(R.id.meal_name)
         val likeButton: ImageView = view.findViewById(R.id.like_icon)
@@ -35,11 +42,18 @@ class MealAdapter(private val mealList: List<Meal>) :
 
     override fun onBindViewHolder(holder: MealViewHolder, position: Int) {
         val meal = mealFilterList[position]
-        Picasso.get().load(meal.image).fit().centerCrop().placeholder(R.drawable.carbonara_image)
-            .into(holder.mealImage)
+        if (meal.image != null && meal.image != "") {
+            Picasso.get().load(meal.image).fit().centerCrop()
+                .placeholder(R.drawable.carbonara_image)
+                .into(holder.mealImage)
+        } else {
+            holder.mealImage.setImageResource(R.drawable.carbonara_image)
+        }
         holder.mealName.text = meal.name
         holder.likeCounter.text = meal.likes.toString()
         holder.cookingTime.text = "${meal.full_time.toString()} мин."
+
+        holder.bind(meal, itemClickListener)
     }
 
     // Фильтрация списка по названию
@@ -69,6 +83,12 @@ class MealAdapter(private val mealList: List<Meal>) :
             }
         }
     }
+
+    // Класс - обработчик нажатия
+    class OnItemClickListener(val clickListener: (meal: Meal) -> Unit) {
+        fun onClick(meal: Meal) = clickListener(meal)
+    }
+
 
     override fun getItemCount() = mealFilterList.size
 }

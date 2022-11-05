@@ -20,7 +20,7 @@ import io.ktor.serialization.*
 import io.ktor.serialization.gson.*
 import kotlinx.coroutines.launch
 
-private const val BASE_URL = "http://192.168.31.133:3000"
+private const val BASE_URL = "http://192.168.1.44:3000"
 private const val GET_MEALS = "$BASE_URL/meals/get_meals"
 
 class MainPage : Fragment() {
@@ -66,7 +66,15 @@ class MainPage : Fragment() {
             val monthMealsItems =
                 meals.filter { it.tags?.contains("month") ?: false }.sortedByDescending { it.likes }
                     .take(6)
-            listOfMonthMeal.adapter = MealAdapter(monthMealsItems)
+            listOfMonthMeal.adapter = MealAdapter(monthMealsItems, MealAdapter.OnItemClickListener {meal ->
+                val transaction = parentFragmentManager.beginTransaction()
+                transaction.add(
+                    R.id.nav_host_fragment,
+                    MyMealInfo.newInstance(meal.id)
+                )
+                transaction.addToBackStack(null)
+                transaction.commit()
+            })
 
             val listOfMorningMeal: RecyclerView = binding.listOfMorningMeal
             listOfMorningMeal.layoutManager = GridLayoutManager(requireContext(), 2)
@@ -74,7 +82,15 @@ class MainPage : Fragment() {
                 meals.filter { it.tags?.contains("morning") ?: false }
                     .sortedByDescending { it.likes }
                     .take(6)
-            listOfMorningMeal.adapter = MealAdapter(morningMealItems)
+            listOfMorningMeal.adapter = MealAdapter(morningMealItems, MealAdapter.OnItemClickListener {meal ->
+                val transaction = parentFragmentManager.beginTransaction()
+                transaction.add(
+                    R.id.nav_host_fragment,
+                    MyMealInfo.newInstance(meal.id)
+                )
+                transaction.addToBackStack(null)
+                transaction.commit()
+            })
 
             val listOfInterestingMeal: RecyclerView = binding.listOfInterestingMeals
             listOfInterestingMeal.layoutManager = GridLayoutManager(requireContext(), 2)
@@ -82,7 +98,15 @@ class MainPage : Fragment() {
                 meals.filter { it.tags?.contains("interesting") ?: false }
                     .sortedByDescending { it.likes }
                     .take(6)
-            listOfInterestingMeal.adapter = MealAdapter(interestingMealItems)
+            listOfInterestingMeal.adapter = MealAdapter(interestingMealItems,MealAdapter.OnItemClickListener {meal ->
+                val transaction = parentFragmentManager.beginTransaction()
+                transaction.add(
+                    R.id.nav_host_fragment,
+                    MyMealInfo.newInstance(meal.id)
+                )
+                transaction.addToBackStack(null)
+                transaction.commit()
+            })
 
             val listOfSeasonsMeal: RecyclerView = binding.listOfSeasonsMeal
             listOfSeasonsMeal.layoutManager = GridLayoutManager(requireContext(), 2)
@@ -90,7 +114,15 @@ class MainPage : Fragment() {
                 meals.filter { it.tags?.contains("season") ?: false }
                     .sortedByDescending { it.likes }
                     .take(6)
-            listOfSeasonsMeal.adapter = MealAdapter(seasonMealItems)
+            listOfSeasonsMeal.adapter = MealAdapter(seasonMealItems,MealAdapter.OnItemClickListener {meal ->
+                val transaction = parentFragmentManager.beginTransaction()
+                transaction.add(
+                    R.id.nav_host_fragment,
+                    MyMealInfo.newInstance(meal.id)
+                )
+                transaction.addToBackStack(null)
+                transaction.commit()
+            })
         }
     }
 
