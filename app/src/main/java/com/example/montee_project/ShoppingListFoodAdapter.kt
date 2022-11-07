@@ -3,15 +3,16 @@ package com.example.montee_project
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.view.menu.MenuView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.montee_project.data_classes.FoodDB
 import com.squareup.picasso.Picasso
 
-class ShoppingListFoodAdapter(private val foodList: List<FoodDB>, val itemClickListener: ShoppingListFoodAdapter.OnItemClickListener) :
+class ShoppingListFoodAdapter(
+    private val foodList: List<FoodDB>,
+    private val itemClickListener: ShoppingListFoodAdapter.OnItemClickListener
+) :
     RecyclerView.Adapter<ShoppingListFoodAdapter.FoodViewHolder>() {
 
     class FoodViewHolder(view: View) : RecyclerView.ViewHolder(view) {

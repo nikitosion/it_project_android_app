@@ -1,7 +1,6 @@
 package com.example.montee_project
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.example.montee_project.data_classes.Food
 import com.example.montee_project.data_classes.FoodDB
-import com.example.montee_project.data_classes.MyFoodDB
 import com.example.montee_project.database.FoodStorage
 import com.example.montee_project.database.MyFoodStorage
 import com.example.montee_project.databinding.FragmentStockFoodInformationBinding
@@ -93,7 +91,11 @@ class StockFoodInformation : Fragment() {
 
             foodsDB = foodDao.getAllFoods().filter { it.stockAmount!! > 0 }
 
-            val myFoodDB = Room.databaseBuilder(requireContext(), MyFoodStorage::class.java, "my_food_database")
+            val myFoodDB = Room.databaseBuilder(
+                requireContext(),
+                MyFoodStorage::class.java,
+                "my_food_database"
+            )
                 .build()
             val myFoodDao = myFoodDB.foodDao()
             val myFoodsDB = myFoodDao.getAllFoods()
@@ -157,7 +159,7 @@ class StockFoodInformation : Fragment() {
                         slider.value = 100F
                         slider.stepSize = 1F
                     }
-                } else if (foods[p2].measurement == "шт" || foods[p2].measurement == "зубч") {
+                } else if (foods[p2].measurement == "шт" || foods[p2].measurement == "зубч" || foods[p2].measurement == "л" || foods[p2].measurement == "пуч") {
                     for (slider in listOf(inStockAmountSlider, minAmountSlider)) {
                         slider.valueFrom = 0F
                         slider.valueTo = 100F
@@ -193,7 +195,6 @@ class StockFoodInformation : Fragment() {
                 val stockFood =
                     foodsDB.find { it.foodName == editingFood?.name } // продукт в налчии
 
-                Log.d("Food", stockFood.toString())
                 if (stockFood != null) {
                     val updatingFoodDB = FoodDB(
                         stockFood.id,
@@ -225,6 +226,8 @@ class StockFoodInformation : Fragment() {
                 transaction.commit()
             }
         }
+
+        // После нажатия на кнопку продукт удаляется
         deleteFoodButton.setOnClickListener {
             val stockFood = foodsDB.find { it.foodName == foodSpinner.selectedItem.toString() }
             if (stockFood != null) {
@@ -232,7 +235,12 @@ class StockFoodInformation : Fragment() {
                     foodDao.removeFood(stockFood)
                 }
             } else {
-                Toast.makeText(requireContext(), "Вы ещё не добавили этот продукт", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Вы ещё не добавили этот продукт",
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
             }
             val transaction = parentFragmentManager.beginTransaction()
             transaction.add(

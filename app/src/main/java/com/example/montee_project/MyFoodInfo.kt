@@ -65,6 +65,7 @@ class MyFoodInfo : Fragment() {
         var emptyFood: MyFoodDB?
         var foods: List<MyFoodDB> = listOf()
 
+        // Обработчик для группы RadioButton, отвечающий за ед. изм.
         radioGroupMeasurement.setOnCheckedChangeListener { _, checkedId ->
             val selectedItem = radioGroupMeasurement.findViewById<RadioButton>(checkedId)
             measurement = selectedItem.text.toString()
@@ -99,6 +100,8 @@ class MyFoodInfo : Fragment() {
                 }
             }
         }
+
+        // По нажатию на кнопку "Подтвердить" продукт добавляется
         confirmButton.setOnClickListener {
             lifecycleScope.launch {
                 val editingFood = MyFoodDB(
@@ -123,6 +126,8 @@ class MyFoodInfo : Fragment() {
             )
             transaction.commit()
         }
+
+        // По нажатию на кнопку удалить продукт удаляется
         deleteButton.setOnClickListener {
             if (foodId != null) {
                 lifecycleScope.launch {

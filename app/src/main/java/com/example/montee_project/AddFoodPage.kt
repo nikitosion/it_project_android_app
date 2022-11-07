@@ -15,9 +15,6 @@ import com.example.montee_project.database.FoodStorage
 import com.example.montee_project.databinding.FragmentAddFoodPageBinding
 import kotlinx.coroutines.launch
 
-private const val BASE_URL = "https://appmontee.herokuapp.com"
-private const val GET_FOODS_BY_IDS = "$BASE_URL/foods/get_foods_by_ids"
-
 
 class AddFoodPage : Fragment() {
 
@@ -51,7 +48,7 @@ class AddFoodPage : Fragment() {
             transaction.addToBackStack(null)
             transaction.commit()
         }
-        // Объявляется локальная база данных
+        // Объявляется локальная база данных продуктов
         val foodDB =
             Room.databaseBuilder(requireContext(), FoodStorage::class.java, "food_database").build()
         val foodDao = foodDB.foodDao()
@@ -63,7 +60,6 @@ class AddFoodPage : Fragment() {
         // Загружаются продукты из удалённой базы данных
         lifecycleScope.launch {
             foodsDB = foodDao.getAllFoods()
-            Log.d(TAG, foodsDB.toString())
             foodList.adapter = FoodAdapter(foodsDB.filter { it.stockAmount!! > 0 },
                 FoodAdapter.OnItemClickListener { food ->
                     val transaction = parentFragmentManager.beginTransaction()
@@ -76,6 +72,9 @@ class AddFoodPage : Fragment() {
                 })
         }
 
+        // По нажатию на кнопку "Подобрать рецепты" переход на страницу с поиком, где
+        // блюда будут отсортированы так, что сверху будут блюда, ингредиенты которых есть
+        // (или частично есть) у пользователя
         suggestRecipesButton.setOnClickListener {
             if (foodsDB != listOf<FoodDB>()) {
                 val transaction = parentFragmentManager.beginTransaction()

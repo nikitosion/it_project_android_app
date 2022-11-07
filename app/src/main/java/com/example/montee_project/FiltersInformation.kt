@@ -65,7 +65,7 @@ class FiltersInformation : Fragment() {
         val suggestedTags = listOf("month", "morning", "interesting", "season")
         val suggestedDiets = listOf("vegan", "sport")
 
-        // Если чек-бокс isChecked добавляется тег или диету в соотв. массив
+        // Если чек-бокс isChecked == true, то добавляется тег или диета в соотв. массив
         for (i in mealsCheckBoxes.indices) {
             mealsCheckBoxes[i].setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
@@ -73,7 +73,6 @@ class FiltersInformation : Fragment() {
                 } else {
                     tags.remove(suggestedTags[i])
                 }
-                Log.d("checkers", "$tags $diets")
             }
         }
         for (i in dietsCheckBoxes.indices) {
@@ -83,11 +82,10 @@ class FiltersInformation : Fragment() {
                 } else {
                     diets.remove(suggestedDiets[i])
                 }
-                Log.d("checkers", "$tags $diets")
             }
         }
 
-        // По нажатию на кнопку "Подтвердить" переходим обратно - на страницу поиска
+        // По нажатию на кнопку "Подтвердить", применяем фильтры и переходим обратно - на страницу поиска
         val confirmButton = binding.confirmButton
         confirmButton.setOnClickListener {
             val transaction = parentFragmentManager.beginTransaction()

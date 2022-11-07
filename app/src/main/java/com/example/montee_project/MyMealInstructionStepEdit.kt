@@ -1,42 +1,23 @@
 package com.example.montee_project
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
-import com.example.montee_project.data_classes.Food
-import com.example.montee_project.data_classes.Ingredient
-import com.example.montee_project.data_classes.IngredientDB
 import com.example.montee_project.data_classes.InstructionStepDB
-import com.example.montee_project.database.FoodStorage
-import com.example.montee_project.database.IngredientStorage
 import com.example.montee_project.database.InstructionStepStorage
-import com.example.montee_project.database.MealStorage
 import com.example.montee_project.databinding.FragmentMyInstructionStepEditBinding
-import com.example.montee_project.databinding.FragmentMyMealIngredientEditBinding
-import com.example.montee_project.databinding.FragmentProfilePageBinding
-import com.google.android.material.R
-import com.squareup.picasso.Picasso
 import io.ktor.client.*
-import io.ktor.client.call.*
 import io.ktor.client.plugins.contentnegotiation.*
-import io.ktor.client.request.*
-import io.ktor.serialization.*
 import io.ktor.serialization.gson.*
 import kotlinx.coroutines.launch
 
 private const val ARG_PARAM1 = "meal_id"
 private const val ARG_PARAM2 = "ingredient_id"
-
-private const val BASE_URL = "https://appmontee.herokuapp.com"
-private const val GET_FOODS = "$BASE_URL/foods/get_foods"
 
 class MyMealInstructionStepEdit : Fragment() {
     private var mealId: String? = null
@@ -52,7 +33,8 @@ class MyMealInstructionStepEdit : Fragment() {
                     }
                 }
             }
-        fun newInstance() : MyMealIngredientEdit {
+
+        fun newInstance(): MyMealIngredientEdit {
             return MyMealIngredientEdit()
         }
     }
@@ -68,8 +50,10 @@ class MyMealInstructionStepEdit : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentMyInstructionStepEditBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -84,11 +68,6 @@ class MyMealInstructionStepEdit : Fragment() {
         ).build()
         val myInstructionStepDao = myInstructionStepDB.instructionStepDao()
 
-        val client = HttpClient() {
-            install(ContentNegotiation) {
-                gson()
-            }
-        }
         val stepTextInput = binding.stepTextInput
         val confirmButton = binding.confirmButton
         val deleteButton = binding.deleteButton
@@ -103,6 +82,7 @@ class MyMealInstructionStepEdit : Fragment() {
             }
         }
 
+        // По нажатию на кнопку добавляется шаг иструкции
         confirmButton.setOnClickListener {
             lifecycleScope.launch {
                 val editingInstructionStep = InstructionStepDB(
@@ -112,7 +92,7 @@ class MyMealInstructionStepEdit : Fragment() {
                     stepTextInput.text.toString()
                 )
 
-                if(instructionStepId != null && instructionStepId != 0) {
+                if (instructionStepId != null && instructionStepId != 0) {
                     editingInstructionStep.id = instructionStep!!.id
                     myInstructionStepDao.editInstructionStep(editingInstructionStep)
                 } else {
@@ -120,10 +100,15 @@ class MyMealInstructionStepEdit : Fragment() {
                 }
 
                 val transaction = parentFragmentManager.beginTransaction()
-                transaction.add(com.example.montee_project.R.id.nav_host_fragment, MyMealInfo.newInstance(mealId))
+                transaction.add(
+                    com.example.montee_project.R.id.nav_host_fragment,
+                    MyMealInfo.newInstance(mealId)
+                )
                 transaction.commit()
             }
         }
+
+        // По нажатию на кнопку удаляется шаг инструкции
         deleteButton.setOnClickListener {
             if (instructionStepId != null) {
                 lifecycleScope.launch {
@@ -131,7 +116,11 @@ class MyMealInstructionStepEdit : Fragment() {
                     myInstructionStepDao.removeInstructionStep(instructionStepsDB.find { it.id == instructionStepId }!!)
                 }
             } else {
-                Toast.makeText(requireContext(), "Данного шага не существует. Попробуйте нажать на шаг в списке", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Данного шага не существует. Попробуйте нажать на шаг в списке",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
             val transaction = parentFragmentManager.beginTransaction()
             transaction.add(

@@ -2,12 +2,11 @@ package com.example.montee_project
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.montee_project.data_classes.User
 import com.example.montee_project.databinding.FragmentUserInformationBinding
@@ -29,7 +28,7 @@ private const val EDIT_USER_IMAGE = "$BASE_URL/users/edit_user_image"
 class UserInformation : Fragment() {
 
     companion object {
-        fun newInstance() : UserInformation {
+        fun newInstance(): UserInformation {
             return UserInformation()
         }
     }
@@ -77,6 +76,7 @@ class UserInformation : Fragment() {
             }
         }
 
+        // Загружается id пользователя
         lifecycleScope.launch {
             val sharedPref = activity?.getSharedPreferences("USER_INFO", Context.MODE_PRIVATE)
             val userId = sharedPref?.getString("USER_ID", "")
@@ -97,10 +97,11 @@ class UserInformation : Fragment() {
             emailInput.setText(user.email)
         }
 
+        // По нажатию на кнопку отправляютя отредактированные элементы
         confirmButton.setOnClickListener {
             if (newPasswordInput.text.toString() != "" && passwordValidation(newPasswordInput.text.toString())) {
                 lifecycleScope.launch {
-                     val userNewPass: User = try {
+                    val userNewPass: User = try {
                         client.post(EDIT_USER_PASSWORD) {
                             url {
                                 parameters.append("id", user.id.toString())
@@ -142,7 +143,11 @@ class UserInformation : Fragment() {
                     } catch (e: JsonConvertException) {
                         User()
                     }
-                    Toast.makeText(requireContext(), "Изображение успешно изменено", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Изображение успешно изменено",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     val transaction = parentFragmentManager.beginTransaction()
                     transaction.add(R.id.nav_host_fragment, ProfilePage.newInstance())
                     transaction.commit()

@@ -1,10 +1,10 @@
 package com.example.montee_project
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +14,6 @@ import com.example.montee_project.data_classes.Ingredient
 import com.example.montee_project.data_classes.Meal
 import com.example.montee_project.database.FoodStorage
 import com.example.montee_project.databinding.FragmentIngredientPageBinding
-import com.example.montee_project.databinding.FragmentMealReciepePageBinding
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.contentnegotiation.*
@@ -81,20 +80,24 @@ class IngredientPage : Fragment() {
         val ingredientsList = binding.ingredientsList
         val instructionButton = binding.instructionButton
 
+        // По нажатию на кнопку назад осуществляется переход на страницу с информацией о блюде
         backButton.setOnClickListener {
             val transaction = parentFragmentManager.beginTransaction()
             transaction.add(R.id.nav_host_fragment, MealReciepePage.newInstance(mealId.toString()))
             transaction.commit()
         }
 
-        ingredientsList.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL,false)
+        ingredientsList.layoutManager =
+            LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
 
+        // Устанавливается текст для TextView, где отображается кол-во порций
         val portion_string = context?.getString(R.string.portion_string)
         portionText.text = String.format(portion_string.toString(), portion)
 
         lifecycleScope.launch {
+            // Загружаем блюдо
             meal = try {
-                client.get(GET_MEALS_BY_ID){
+                client.get(GET_MEALS_BY_ID) {
                     url {
                         parameters.append("meal_id", mealId.toString())
                     }
@@ -104,9 +107,11 @@ class IngredientPage : Fragment() {
             }
 
             val foodDB =
-                Room.databaseBuilder(requireContext(), FoodStorage::class.java, "food_database").build()
+                Room.databaseBuilder(requireContext(), FoodStorage::class.java, "food_database")
+                    .build()
             val foodDao = foodDB.foodDao()
 
+            // Загружаем ингредиенты по id из блюда
             val ingredients: List<Ingredient> = try {
                 client.get(GET_INGREDIENTS_BY_IDS) {
                     url {
@@ -117,6 +122,7 @@ class IngredientPage : Fragment() {
                 listOf()
             }
 
+            // Находятся необходимые продукты
             val reqStockFoods = mutableListOf<FoodDB>()
             val stockFoods = foodDao.getAllFoods()
             for (stockFood in stockFoods) {
@@ -132,6 +138,8 @@ class IngredientPage : Fragment() {
             fatsText.text = meal.fats.toString()
             carbohydratesText.text = meal.carbohydrates.toString()
             ingredientsList.adapter = IngredientAdapter(ingredients, portion, reqStockFoods)
+
+            // Увеличение кол-ва порции
             plusPortionButton.setOnClickListener {
                 if (portion >= 1 && portion <= 4) {
                     portion += 1
@@ -139,8 +147,10 @@ class IngredientPage : Fragment() {
                     portionText.text = String.format(portion_string.toString(), portion)
                 }
             }
+
+            // Уменьшение кол-ва порций
             minusPortionButton.setOnClickListener {
-                if(portion >= 2 && portion <= 5) {
+                if (portion >= 2 && portion <= 5) {
                     portion -= 1
                     ingredientsList.adapter = IngredientAdapter(ingredients, portion, reqStockFoods)
                     portionText.text = String.format(portion_string.toString(), portion)

@@ -1,17 +1,8 @@
 package com.example.montee_project.data_classes
 
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.Room
-import com.example.montee_project.database.FoodStorage
-import io.ktor.client.*
-import io.ktor.client.call.*
-import io.ktor.client.plugins.contentnegotiation.*
-import io.ktor.client.request.*
-import io.ktor.serialization.*
-import io.ktor.serialization.gson.*
 
 
 @Entity(tableName = "Foods")

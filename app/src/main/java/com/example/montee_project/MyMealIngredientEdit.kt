@@ -1,25 +1,19 @@
 package com.example.montee_project
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.example.montee_project.data_classes.Food
-import com.example.montee_project.data_classes.Ingredient
 import com.example.montee_project.data_classes.IngredientDB
-import com.example.montee_project.data_classes.MyFoodDB
-import com.example.montee_project.database.FoodStorage
 import com.example.montee_project.database.IngredientStorage
-import com.example.montee_project.database.MealStorage
 import com.example.montee_project.databinding.FragmentMyMealIngredientEditBinding
-import com.example.montee_project.databinding.FragmentProfilePageBinding
 import com.google.android.material.R
 import com.squareup.picasso.Picasso
 import io.ktor.client.*
@@ -109,7 +103,7 @@ class MyMealIngredientEdit : Fragment() {
         var savedIngredient: IngredientDB? = null
         var ingredientsDB: List<IngredientDB> = listOf()
 
-        // Загружаем продукты из удалённой и локальной баз данных
+        // Загружаются продукты из удалённой и локальной баз данных
         lifecycleScope.launch {
             foods =
                 try {
@@ -127,19 +121,21 @@ class MyMealIngredientEdit : Fragment() {
                     foods.map { it.name })
             foodSpinner.adapter = adapter
 
+            // Если был передан id ингредиента, то в списке выбирается он
             if (ingredientId != null) {
                 ingredient = myIngredientDao.getAllIngredients().find { it.id == ingredientId }
-                Log.d("ingredient", ingredient.toString())
                 foodSpinner.setSelection(foods.indexOf(foods.find { it.id == ingredient?.food_id }))
             } else {
                 foodSpinner.setSelection(0)
             }
         }
 
+        // При изменении значения слайдера меняется текст, отображающий его значение
         amountSlider.addOnChangeListener { _, value, _ ->
             amountValue.text = value.toString()
         }
 
+        // При выборе элемента из выпадающего списка, подргужается информация о нём
         foodSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
 
@@ -156,7 +152,6 @@ class MyMealIngredientEdit : Fragment() {
                         slider.value = 100F
                         slider.stepSize = 1F
                     }
-                // TODO: !!!Поменять это везде!!!
                 } else if (foods[p2].measurement == "шт" || foods[p2].measurement == "зубч" || foods[p2].measurement == "л" || foods[p2].measurement == "пуч") {
                     for (slider in listOf(amountSlider)) {
                         slider.valueFrom = 0F
@@ -181,6 +176,7 @@ class MyMealIngredientEdit : Fragment() {
             }
         }
 
+        // По нажатию на кнопку добавляется ингредиент
         confirmButton.setOnClickListener {
             lifecycleScope.launch {
                 val editingIngredient = IngredientDB(
@@ -202,7 +198,6 @@ class MyMealIngredientEdit : Fragment() {
                     ingredientDao.addIngredient(editingIngredient)
                 }
 
-                Log.d("id", "My meal ${mealId}")
                 val transaction = parentFragmentManager.beginTransaction()
                 transaction.add(
                     com.example.montee_project.R.id.nav_host_fragment,
@@ -211,13 +206,19 @@ class MyMealIngredientEdit : Fragment() {
                 transaction.commit()
             }
         }
+
+        // По нажатию на кнопку удаляется ингредиент
         deleteButton.setOnClickListener {
             if (ingredientId != null) {
                 lifecycleScope.launch {
                     ingredientDao.removeIngredient(ingredientsDB.find { it.id == ingredientId }!!)
                 }
             } else {
-                Toast.makeText(requireContext(), "Данного продукта не существует. Попробуйте нажать на продукт в списке", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Данного продукта не существует. Попробуйте нажать на продукт в списке",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
             val transaction = parentFragmentManager.beginTransaction()
             transaction.add(

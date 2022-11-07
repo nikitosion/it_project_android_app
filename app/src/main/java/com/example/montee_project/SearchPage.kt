@@ -1,20 +1,16 @@
 package com.example.montee_project
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
-import com.example.montee_project.data_classes.FoodDB
 import com.example.montee_project.data_classes.Ingredient
 import com.example.montee_project.data_classes.Meal
-import com.example.montee_project.data_classes.MealDB
 import com.example.montee_project.database.FoodStorage
 import com.example.montee_project.database.MealStorage
 import com.example.montee_project.databinding.FragmentSearchBinding
@@ -144,8 +140,9 @@ class SearchPage : Fragment() {
             if (filteredMeals != listOf<Meal>()) {
                 meals = filteredMeals.toSet().toMutableList()
             }
+
+            // Если требуется подборка блюд, то составляем необходимый список
             if (suggested == true) {
-                Log.d("List", suggested.toString())
                 val foodDB =
                     Room.databaseBuilder(
                         requireContext(),
@@ -156,6 +153,8 @@ class SearchPage : Fragment() {
                 val foodsDB = foodDao.getAllFoods()
                 val foodsNames = foodsDB.map { it.foodName }
                 val newFilteredList = mutableSetOf<Meal>()
+
+                // Соотносятся ингредиенты и продукты в наличии
                 lifecycleScope.launch {
                     for (meal in meals) {
                         for (ingredient_id in meal.ingredients_ids?.split(",")!!) {

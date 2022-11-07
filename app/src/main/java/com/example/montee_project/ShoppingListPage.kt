@@ -1,11 +1,10 @@
 package com.example.montee_project
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
@@ -59,16 +58,17 @@ class ShoppingListPage : Fragment() {
         // Подгружаются продукты из локальной базы данных
         lifecycleScope.launch {
             foodsDB = foodDao.getAllFoods().filter { it.toBuyAmount!! > 0 }
-            Log.d(TAG, foodsDB.toString())
-            foodList.adapter = ShoppingListFoodAdapter(foodsDB, ShoppingListFoodAdapter.OnItemClickListener { foodDB ->
-                val transaction = parentFragmentManager.beginTransaction()
-                transaction.add(
-                    R.id.nav_host_fragment,
-                    ShoppingListFoodInformation.newInstance(foodDB.foodName)
-                )
-                transaction.addToBackStack(null)
-                transaction.commit()
-            })
+            foodList.adapter = ShoppingListFoodAdapter(
+                foodsDB,
+                ShoppingListFoodAdapter.OnItemClickListener { foodDB ->
+                    val transaction = parentFragmentManager.beginTransaction()
+                    transaction.add(
+                        R.id.nav_host_fragment,
+                        ShoppingListFoodInformation.newInstance(foodDB.foodName)
+                    )
+                    transaction.addToBackStack(null)
+                    transaction.commit()
+                })
         }
     }
 }

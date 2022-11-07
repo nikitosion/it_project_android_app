@@ -1,24 +1,15 @@
 package com.example.montee_project
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.room.Room
 import com.example.montee_project.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import io.ktor.client.*
-import io.ktor.client.request.*
-import io.ktor.client.statement.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 const val TAG = "MainActivity"
 
@@ -61,7 +52,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.search_page_button -> {
                     if (supportFragmentManager.fragments.last() !is SearchPage) {
-                        openFragment(SearchPage.newInstance("", "",false))
+                        openFragment(SearchPage.newInstance("", "", false))
                         toolbar.title = getString(R.string.search_page_label)
                     }
                     true

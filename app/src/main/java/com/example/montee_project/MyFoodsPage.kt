@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 class MyFoodsPage : Fragment() {
 
     companion object {
-        fun newInstance() : MyFoodsPage {
+        fun newInstance(): MyFoodsPage {
             return MyFoodsPage()
         }
     }
@@ -42,10 +42,17 @@ class MyFoodsPage : Fragment() {
         val myFoodsList = binding.myFoodsList
         val addFoodButton = binding.addFoodButton
 
-        myFoodsList.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL,false)
+        myFoodsList.layoutManager =
+            LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
 
         lifecycleScope.launch {
-            val myFoodDB = Room.databaseBuilder(requireContext(), MyFoodStorage::class.java, "my_food_database")
+            // Подключается база данных, загружаются продукты, и превращаются в класс, который необходим
+            // для адаптера
+            val myFoodDB = Room.databaseBuilder(
+                requireContext(),
+                MyFoodStorage::class.java,
+                "my_food_database"
+            )
                 .build()
             val myFoodDao = myFoodDB.foodDao()
             val foodsDB = myFoodDao.getAllFoods()
@@ -70,6 +77,7 @@ class MyFoodsPage : Fragment() {
             })
         }
 
+        // По нажатию на кнопку добавляется продукт
         addFoodButton.setOnClickListener {
             val transaction = parentFragmentManager.beginTransaction()
             transaction.add(R.id.nav_host_fragment, MyFoodInfo.newInstance())

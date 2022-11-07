@@ -4,18 +4,17 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.montee_project.data_classes.Food
 import com.example.montee_project.data_classes.FoodDB
 import com.example.montee_project.data_classes.Ingredient
-import com.squareup.picasso.Picasso
 
 
-class IngredientAdapter(private val ingredientList: List<Ingredient>, private val portion: Int, private val reqStockFoods: List<FoodDB>? = null) :
+class IngredientAdapter(
+    private val ingredientList: List<Ingredient>,
+    private val portion: Int,
+    private val reqStockFoods: List<FoodDB>? = null
+) :
     RecyclerView.Adapter<IngredientAdapter.IngredientViewHolder>() {
 
     class IngredientViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -36,10 +35,17 @@ class IngredientAdapter(private val ingredientList: List<Ingredient>, private va
         val ingredient = ingredientList[position]
 
         holder.ingredientName.text = ingredient.name
+
+        // Если у количество необходимого для приготовления продукта меньше его количества, которое
+        // есть в наличии, то ингредиент подсвечивается красным
         if (ingredient.amount?.toInt() != 0) {
             val measure_string = holder.itemView.context.getString(R.string.measure_string)
             holder.ingredientAmount.text =
-                String.format(measure_string, ingredient.amount?.toInt()?.times(portion), ingredient.measurement)
+                String.format(
+                    measure_string,
+                    ingredient.amount?.toInt()?.times(portion),
+                    ingredient.measurement
+                )
             if (reqStockFoods != null && ingredient.name in reqStockFoods.map { it.foodName }) {
                 val foundIngredient = reqStockFoods.find { it.foodName == ingredient.name }
                 if (foundIngredient?.stockAmount!! < ingredient.amount!!.toInt().times(portion)) {

@@ -1,8 +1,6 @@
 package com.example.montee_project
 
-import android.R
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -90,18 +88,21 @@ class ShoppingListFoodInformation : Fragment() {
                 } catch (e: JsonConvertException) {
                     mutableListOf()
                 }
-            Log.d("list", foods.toString())
             foodsDB = foodDao.getAllFoods().filter { it.toBuyAmount!! > 0 }
 
+            // Предложение по добавлению в список
             val needFood = foodDao.getAllFoods().find { it.stockAmount!! < it.minimalAmount!! }
-
             if (needFood != null) {
                 val needFoodString =
                     context?.getString(com.example.montee_project.R.string.need_food_string)
                 suggestListItem.text = String.format(needFoodString.toString(), needFood?.foodName)
             }
 
-            val myFoodDB = Room.databaseBuilder(requireContext(), MyFoodStorage::class.java, "my_food_database")
+            val myFoodDB = Room.databaseBuilder(
+                requireContext(),
+                MyFoodStorage::class.java,
+                "my_food_database"
+            )
                 .build()
             val myFoodDao = myFoodDB.foodDao()
             val myFoodsDB = myFoodDao.getAllFoods()
@@ -163,7 +164,7 @@ class ShoppingListFoodInformation : Fragment() {
                     toBuyAmountSlider.valueTo = 1000F
                     toBuyAmountSlider.value = 100F
                     toBuyAmountSlider.stepSize = 1F
-                } else if (foods[p2].measurement == "шт" || foods[p2].measurement == "зубч") {
+                } else if (foods[p2].measurement == "шт" || foods[p2].measurement == "зубч" || foods[p2].measurement == "л" || foods[p2].measurement == "пуч") {
                     toBuyAmountSlider.valueFrom = 0F
                     toBuyAmountSlider.valueTo = 100F
                     toBuyAmountSlider.value = 10F
@@ -193,7 +194,6 @@ class ShoppingListFoodInformation : Fragment() {
                 val stockFood =
                     foodsDB.find { it.foodName == editingFood?.name } // продукт в налчии
 
-                Log.d("Food", stockFood.toString())
                 if (stockFood != null) {
                     val updatingFoodDB = FoodDB(
                         stockFood.id,
@@ -224,18 +224,20 @@ class ShoppingListFoodInformation : Fragment() {
                 )
                 transaction.commit()
             }
-//          Служебный вывод
-//            val text =
-//                "Confirmed\n Item ${foodSpinner.selectedItem} was created.\n Stock: ${toBuyAmountValue.text} ${stockAmountText.text}\n"
-//            Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
         }
+
+        // По нажатию на кнопку удаляется элемент из списка покупок
         deleteButton.setOnClickListener {
             if (recievedFoodName != null) {
                 lifecycleScope.launch {
                     foodDao.removeFood(foodsDB.find { it.foodName == recievedFoodName }!!)
                 }
             } else {
-                Toast.makeText(requireContext(), "Данного продукты не существует. Попробуйте нажать на продукт в списке", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Данного продукты не существует. Попробуйте нажать на продукт в списке",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
             val transaction = parentFragmentManager.beginTransaction()
             transaction.add(

@@ -1,23 +1,22 @@
 package com.example.montee_project
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.room.Room
 import com.example.montee_project.data_classes.Meal
 import com.example.montee_project.database.MealStorage
-import com.example.montee_project.databinding.FragmentLoginPageBinding
 import com.example.montee_project.databinding.FragmentMyMealsPageBinding
 import kotlinx.coroutines.launch
 
 class MyMealsPage : Fragment() {
 
     companion object {
-        fun newInstance() : MyMealsPage {
+        fun newInstance(): MyMealsPage {
             return MyMealsPage()
         }
     }
@@ -43,6 +42,7 @@ class MyMealsPage : Fragment() {
         myMealList.layoutManager = GridLayoutManager(requireContext(), 2)
 
         lifecycleScope.launch {
+            // Загружаются блюда и превращаютс в класс, необходимый для адаптера
             val mealDB =
                 Room.databaseBuilder(requireContext(), MealStorage::class.java, "meal_database")
                     .build()
@@ -69,7 +69,7 @@ class MyMealsPage : Fragment() {
                 )
                 meals.add(newMeal)
             }
-            myMealList.adapter = MealAdapter(meals, MealAdapter.OnItemClickListener {meal ->
+            myMealList.adapter = MealAdapter(meals, MealAdapter.OnItemClickListener { meal ->
                 val transaction = parentFragmentManager.beginTransaction()
                 transaction.add(
                     R.id.nav_host_fragment,
@@ -80,6 +80,7 @@ class MyMealsPage : Fragment() {
             })
         }
 
+        // По нажатию на кнопку добавляется блюдо
         addMealButton.setOnClickListener {
             val transaction = parentFragmentManager.beginTransaction()
             transaction.add(R.id.nav_host_fragment, MyMealInfo.newInstance())

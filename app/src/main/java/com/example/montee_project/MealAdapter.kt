@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.montee_project.data_classes.Meal
 import com.squareup.picasso.Picasso
 
-class MealAdapter(private val mealList: List<Meal>, val itemClickListener: OnItemClickListener) :
+class MealAdapter(private val mealList: List<Meal>, private val itemClickListener: OnItemClickListener) :
     RecyclerView.Adapter<MealAdapter.MealViewHolder>(), Filterable {
 
     private var mealFilterList = listOf<Meal>()
@@ -19,6 +19,7 @@ class MealAdapter(private val mealList: List<Meal>, val itemClickListener: OnIte
 
     class MealViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
+        // Функия для обработки нажатия
         fun bind(meal: Meal, itemClickListener: OnItemClickListener) {
             itemView.setOnClickListener {
                 itemClickListener.onClick(meal)

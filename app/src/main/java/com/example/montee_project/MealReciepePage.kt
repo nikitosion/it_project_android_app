@@ -3,16 +3,14 @@ package com.example.montee_project
 import android.content.Context
 import android.graphics.PorterDuff
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.montee_project.data_classes.Meal
 import com.example.montee_project.databinding.FragmentMealReciepePageBinding
-import com.example.montee_project.databinding.FragmentProfilePageBinding
 import com.squareup.picasso.Picasso
 import io.ktor.client.*
 import io.ktor.client.call.*
@@ -86,8 +84,9 @@ class MealReciepePage : Fragment() {
         val instructionButton = binding.instructionButton
 
         lifecycleScope.launch {
+            // Загружаем продукт
             meal = try {
-                client.get(GET_MEALS_BY_ID){
+                client.get(GET_MEALS_BY_ID) {
                     url {
                         parameters.append("meal_id", mealId.toString())
                     }
@@ -96,9 +95,11 @@ class MealReciepePage : Fragment() {
                 Meal()
             }
 
+            // Вставляем данные в соотв. TextView
             mealName.text = meal.name
             if (meal.image != null && meal.image != "") {
-                Picasso.get().load(meal.image).placeholder(R.drawable.carbonara_image).fit().centerCrop().into(mealImage)
+                Picasso.get().load(meal.image).placeholder(R.drawable.carbonara_image).fit()
+                    .centerCrop().into(mealImage)
             }
             val time_string = context?.getString(R.string.time_string)
             mealTimeText.text = String.format(time_string.toString(), meal.full_time)
@@ -123,6 +124,7 @@ class MealReciepePage : Fragment() {
             carbohydratesText.text = meal.carbohydrates.toString()
         }
 
+        // По нажатию на кнопку "Комментарии" осуществляется переход на страницу с комментариями
         commentButton.setOnClickListener {
             val transaction = parentFragmentManager.beginTransaction()
             transaction.add(R.id.nav_host_fragment, CommentsPage.newInstance(mealId.toString()))
@@ -130,6 +132,8 @@ class MealReciepePage : Fragment() {
             transaction.commit()
         }
 
+        // По нажатию на кнопку "Лайк" кол-во лайков увеличиается на 1, если пользователь ещё не
+        // "лайкал" это блюдо, или уменьшается на 1, если "лайкал"
         likeButton.setOnClickListener {
             val sharedPref = activity?.getSharedPreferences("USER_INFO", Context.MODE_PRIVATE)
             val userId = sharedPref?.getString("USER_ID", "")
@@ -153,16 +157,19 @@ class MealReciepePage : Fragment() {
             }
         }
 
+        // переход на страницу с ингредиентами
         ingredientsButton.setOnClickListener {
-            // переход на страницу с ингредиентами
             val transaction = parentFragmentManager.beginTransaction()
             transaction.add(R.id.nav_host_fragment, IngredientPage.newInstance(mealId.toString()))
             transaction.addToBackStack(null)
             transaction.commit()
         }
-
+        // переход на страницу с инструкцией
         instructionButton.setOnClickListener {
-            // переход на страницу с инструкцией
+            val transaction = parentFragmentManager.beginTransaction()
+            transaction.add(R.id.nav_host_fragment, MealInstructionPage.newInstance(mealId.toString()))
+            transaction.addToBackStack(null)
+            transaction.commit()
         }
     }
 }

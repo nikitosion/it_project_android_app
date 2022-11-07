@@ -1,7 +1,6 @@
 package com.example.montee_project.data_classes
 
 import kotlinx.serialization.Serializable
-import java.util.*
 
 @Serializable
 data class Comment(

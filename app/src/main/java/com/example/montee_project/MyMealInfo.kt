@@ -1,18 +1,16 @@
 package com.example.montee_project
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
-import com.example.montee_project.data_classes.Meal
 import com.example.montee_project.data_classes.MealDB
 import com.example.montee_project.database.IngredientStorage
 import com.example.montee_project.database.InstructionStepStorage
@@ -116,18 +114,14 @@ class MyMealInfo : Fragment() {
             // загружаем его из базы данных
             if (mealId != null || emptyMeal != null) {
                 if (mealId != null) {
-                    Log.d("id", "I'm in mealId")
                     lastIndexMeal = mealId!!.toInt()
                 } else if (emptyMeal != null) {
-                    Log.d("id", "I'm in empty")
                     lastIndexMeal = emptyMeal.id!!
                 }
                 val loadedMeal = meals.find { it.id == lastIndexMeal }
-                Log.d("id", lastIndexMeal.toString())
 
                 nameInput.setText(loadedMeal?.name)
                 imageLinkInput.setText(loadedMeal?.image)
-                Log.d("Full time", fullTimeInput.toString())
                 if (loadedMeal?.full_time != null)
                     fullTimeInput.setText(loadedMeal.full_time.toString())
                 when (loadedMeal?.difficulty) {
@@ -155,6 +149,7 @@ class MyMealInfo : Fragment() {
                 lastIndexMeal = mealDao.getAllMeals().last().id!!
             }
 
+            // Переход на страницу для добавления ингрдеиента с сохранением текущей информации о блюде
             addIngredientButton.setOnClickListener {
                 lifecycleScope.launch {
 
@@ -169,9 +164,8 @@ class MyMealInfo : Fragment() {
                     if (mealId != null)
                         id = mealId!!.toInt()
                     else if (emptyMeal != null) {
-                        id = emptyMeal!!.id!!
+                        id = emptyMeal.id!!
                     }
-                    Log.d("id", "Saved id: ${id.toString()}")
 
                     val editingMeal = MealDB(
                         id,
@@ -189,7 +183,6 @@ class MyMealInfo : Fragment() {
                         diets,
                         instructionStepsIds
                     )
-                    Log.d("Meal", editingMeal.toString())
                     mealDao.editMeal(editingMeal)
                 }
                 val transaction = parentFragmentManager.beginTransaction()
@@ -200,6 +193,7 @@ class MyMealInfo : Fragment() {
                 transaction.commit()
             }
 
+            // Обработка нажатия на ингредиент в списке с сохранением текущей информации о блюде
             val ingredients =
                 myIngredientDao.getAllIngredients().filter { it.meal_id == lastIndexMeal }
             ingredientsList.adapter = MyMealIngredientAdapter(
@@ -253,7 +247,7 @@ class MyMealInfo : Fragment() {
                     }
                 })
 
-
+            // Переход на страницу для добавления шага инструкции с сохранением текущей информации о блюде
             addIntstructionStepButton.setOnClickListener {
                 lifecycleScope.launch {
 
@@ -298,6 +292,7 @@ class MyMealInfo : Fragment() {
                 transaction.commit()
             }
 
+            // Обработка нажатия на шаг в списке с сохранением текущей информации о блюде
             val instructionSteps =
                 myInstructionStepDao.getAllInstructionSteps().filter { it.meal_id == lastIndexMeal }
             instructionStepsList.adapter = MyMealInstructionStepAdapter(
@@ -352,20 +347,20 @@ class MyMealInfo : Fragment() {
                 })
         }
 
+        // Обработчик для группы RadioButton, отвечающей за выбор сложности
         radioGroupDifficulty.setOnCheckedChangeListener { _, checkedId ->
             val selectedItem = radioGroupDifficulty.findViewById<RadioButton>(checkedId)
             difficulty = selectedItem.text.toString()
         }
 
+        // Обрпботчики CheckBox'ов диет
         sportCheckBox.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 dietsList.add("sport")
             } else {
                 dietsList.remove("sport")
             }
-            Log.d("diets", "Diets list: ${dietsList.toString()}")
             diets = dietsList.joinToString(",")
-            Log.d("diets", "Diets list: $diets")
         }
         veganCheckBox.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
@@ -373,11 +368,10 @@ class MyMealInfo : Fragment() {
             } else {
                 dietsList.remove("vegan")
             }
-            Log.d("diets", "Diets list: ${dietsList.toString()}")
             diets = dietsList.joinToString(",")
-            Log.d("diets", "Diets list: $diets")
         }
 
+        // По нажатию на кнопку добавляется новое блюдо
         confirmButton.setOnClickListener {
             lifecycleScope.launch {
                 val ingredientsIds =

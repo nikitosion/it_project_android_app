@@ -65,6 +65,7 @@ class ProfilePage : Fragment() {
 
         var user: User
 
+        // Если id пользователся не пустой загружается информация об этом пользователе
         if (userId == null || userId == "") {
             val transaction = parentFragmentManager.beginTransaction()
             transaction.add(R.id.nav_host_fragment, LoginPage.newInstance())
@@ -72,8 +73,11 @@ class ProfilePage : Fragment() {
         } else {
             lifecycleScope.launch {
                 user = try {
-                    // TODO: Исправить!!! Добавить id
-                    client.get(GET_USER_INFO).body()
+                    client.get(GET_USER_INFO) {
+                        url {
+                            parameters.append("user_id", userId.toString())
+                        }
+                    }.body()
                 } catch (e: JsonConvertException) {
                     User()
                 }
@@ -85,6 +89,7 @@ class ProfilePage : Fragment() {
             }
         }
 
+        // Переход на страницу с блюдами пользователя
         myMealButton.setOnClickListener {
             val transaction = parentFragmentManager.beginTransaction()
             transaction.add(R.id.nav_host_fragment, MyMealsPage.newInstance())
@@ -92,6 +97,7 @@ class ProfilePage : Fragment() {
             transaction.commit()
         }
 
+        // Переход на страницу с продуктами пользователя
         myFoodsButton.setOnClickListener {
             val transaction = parentFragmentManager.beginTransaction()
             transaction.add(R.id.nav_host_fragment, MyFoodsPage.newInstance())
@@ -99,6 +105,7 @@ class ProfilePage : Fragment() {
             transaction.commit()
         }
 
+        // Переход на страницу для редактирования информации о пользователе
         editButton.setOnClickListener {
             val transaction = parentFragmentManager.beginTransaction()
             transaction.add(R.id.nav_host_fragment, UserInformation.newInstance())
@@ -106,6 +113,7 @@ class ProfilePage : Fragment() {
             transaction.commit()
         }
 
+        // Выход из аккаунта
         exitButton.setOnClickListener {
             if (sharedPref != null) {
                 sharedPref.edit().remove("USER_ID").apply()

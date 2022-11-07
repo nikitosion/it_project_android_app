@@ -3,10 +3,10 @@ package com.example.montee_project
 import android.content.Context
 import android.os.Bundle
 import android.text.format.DateFormat
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +14,6 @@ import com.example.montee_project.data_classes.Comment
 import com.example.montee_project.data_classes.Meal
 import com.example.montee_project.data_classes.User
 import com.example.montee_project.databinding.FragmentCommentsPageBinding
-import com.example.montee_project.databinding.FragmentMealReciepePageBinding
 import com.squareup.picasso.Picasso
 import io.ktor.client.*
 import io.ktor.client.call.*
@@ -47,7 +46,6 @@ class CommentsPage : Fragment() {
                 }
             }
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -74,6 +72,7 @@ class CommentsPage : Fragment() {
         val commentInput = binding.commentInput
         val commentSendButton = binding.commentSendButton
 
+        // По нажатию на кнопку назад осуществляется переход на страницу с информацией о блюде
         backButton.setOnClickListener {
             val transaction = parentFragmentManager.beginTransaction()
             transaction.add(R.id.nav_host_fragment, MealReciepePage.newInstance(mealId.toString()))
@@ -86,26 +85,30 @@ class CommentsPage : Fragment() {
             }
         }
 
-        commentsList.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+        commentsList.layoutManager =
+            LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         var meal: Meal
         var comments: List<Comment>
 
         lifecycleScope.launch {
+            // Получаем информацию о блюде
             meal = try {
-                client.get(GET_MEALS_BY_ID){
+                client.get(GET_MEALS_BY_ID) {
                     url {
                         parameters.append("meal_id", mealId.toString())
                     }
                 }.body()
-            }catch (e: JsonConvertException) {
+            } catch (e: JsonConvertException) {
                 Meal()
             }
 
             mealName.text = meal.name
             if (meal.image != null && meal.image != "") {
-                Picasso.get().load(meal.image).placeholder(R.drawable.carbonara_image).fit().into(mealImage)
+                Picasso.get().load(meal.image).placeholder(R.drawable.carbonara_image).fit()
+                    .into(mealImage)
             }
 
+            // Получаем комментарии на данное блюдо
             comments = try {
                 client.get(GET_COMMENTS) {
                     url {
@@ -119,11 +122,12 @@ class CommentsPage : Fragment() {
             commentsList.adapter = CommentAdapter(comments.filter { it.meal_id == mealId })
         }
 
+        // Если пользователь зарегестрирован, то по нажатию на кнопку "Отправить" создаётся комментарий
         commentSendButton.setOnClickListener {
             val sharedPref = activity?.getSharedPreferences("USER_INFO", Context.MODE_PRIVATE)
             val userId = sharedPref?.getString("USER_ID", "")
 
-            if(userId != "") {
+            if (userId != "") {
                 lifecycleScope.launch {
                     val user: User = try {
                         client.get(GET_USER_INFO) {
@@ -135,7 +139,7 @@ class CommentsPage : Fragment() {
                         User()
                     }
 
-                    val newCommentsList : List<Comment> = try {
+                    val newCommentsList: List<Comment> = try {
                         client.post(POST_COMMENT) {
                             contentType(ContentType.Application.Json)
                             setBody(
@@ -153,7 +157,8 @@ class CommentsPage : Fragment() {
                     } catch (e: JsonConvertException) {
                         listOf()
                     }
-                    commentsList.adapter = CommentAdapter(newCommentsList.filter { it.meal_id == mealId })
+                    commentsList.adapter =
+                        CommentAdapter(newCommentsList.filter { it.meal_id == mealId })
                 }
             }
         }
