@@ -10,7 +10,7 @@ import androidx.room.PrimaryKey
 data class IngredientDB(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "ingredient_id")
-    var id: Int,
+    var id: Int? = null,
     @ColumnInfo(name = "food_id")
     val food_id : String? = null,
     @ColumnInfo(name = "meal_id")

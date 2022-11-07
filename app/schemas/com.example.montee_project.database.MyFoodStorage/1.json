@@ -2,17 +2,17 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "cf3e161868dc2e676aa429bc12ddc698",
+    "identityHash": "009d22a7da52e6c7b531b0f0da162225",
     "entities": [
       {
         "tableName": "MyFoodsDB",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`food_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `food_image` TEXT, `food_name` TEXT, `measurement` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`food_id` INTEGER PRIMARY KEY AUTOINCREMENT, `food_image` TEXT, `food_name` TEXT, `measurement` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "food_id",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "foodImage",
@@ -46,7 +46,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'cf3e161868dc2e676aa429bc12ddc698')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '009d22a7da52e6c7b531b0f0da162225')"
     ]
   }
 }

@@ -37,21 +37,6 @@
             tools:itemCount="6"
             tools:listitem="@layout/meal_item" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/more_month_meals_button"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:text="Показать ещё..."
-            android:textFontWeight="600"
-            app:cornerRadius="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/list_of_month_meal"
-            app:strokeColor="@color/green_700" />
-
         <TextView
             android:id="@+id/good_morning_label"
             android:layout_width="wrap_content"
@@ -62,7 +47,7 @@
             android:textFontWeight="500"
             android:textSize="26sp"
             app:layout_constraintStart_toStartOf="@id/meal_of_month_label"
-            app:layout_constraintTop_toBottomOf="@id/more_month_meals_button" />
+            app:layout_constraintTop_toBottomOf="@id/list_of_month_meal" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_of_morning_meal"
@@ -74,23 +59,8 @@
             app:layout_constraintStart_toStartOf="@id/good_morning_label"
             app:layout_constraintTop_toBottomOf="@id/good_morning_label"
             app:spanCount="2"
-            tools:itemCount="6"
+            tools:itemCount="4"
             tools:listitem="@layout/meal_item" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/more_morning_meals_button"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:text="Показать ещё..."
-            android:textFontWeight="600"
-            app:cornerRadius="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/list_of_morning_meal"
-            app:strokeColor="@color/green_700" />
 
         <TextView
             android:id="@+id/interesting_label"
@@ -102,7 +72,7 @@
             android:textFontWeight="500"
             android:textSize="26sp"
             app:layout_constraintStart_toStartOf="@id/meal_of_month_label"
-            app:layout_constraintTop_toBottomOf="@id/more_morning_meals_button" />
+            app:layout_constraintTop_toBottomOf="@id/list_of_morning_meal" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_of_interesting_meals"
@@ -114,23 +84,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/interesting_label"
             app:spanCount="2"
-            tools:itemCount="6"
+            tools:itemCount="4"
             tools:listitem="@layout/meal_item" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/more_interesting_meals_button"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:text="Показать ещё..."
-            android:textFontWeight="600"
-            app:cornerRadius="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/list_of_interesting_meals"
-            app:strokeColor="@color/green_700" />
 
         <TextView
             android:id="@+id/seasons_label"
@@ -142,7 +97,7 @@
             android:textFontWeight="500"
             android:textSize="26sp"
             app:layout_constraintStart_toStartOf="@id/meal_of_month_label"
-            app:layout_constraintTop_toBottomOf="@id/more_interesting_meals_button" />
+            app:layout_constraintTop_toBottomOf="@id/list_of_interesting_meals" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_of_seasons_meal"
@@ -154,23 +109,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/seasons_label"
             app:spanCount="2"
-            tools:itemCount="6"
+            tools:itemCount="4"
             tools:listitem="@layout/meal_item" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/more_seasons_meal_button"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:text="Показать ещё..."
-            android:textFontWeight="600"
-            app:cornerRadius="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/list_of_seasons_meal"
-            app:strokeColor="@color/green_700" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

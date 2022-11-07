@@ -9,4 +9,5 @@
     <color name="black">#130C01</color>
     <color name="background_night_theme">#3F3E3A</color>
     <color name="white">#FFFCEC</color>
+    <color name="red_food">#FF665C</color>
 </resources>

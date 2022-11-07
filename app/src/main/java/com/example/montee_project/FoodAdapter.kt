@@ -20,11 +20,6 @@ class FoodAdapter(private val foodList: List<FoodDB>, val itemClickListener: OnI
 
         // Функия для обработки нажатия
         fun bind(foodDB: FoodDB, itemClickListener: OnItemClickListener) {
-            Picasso.get().load(foodDB.foodImage).into(foodImage)
-            foodName.text = foodDB.foodName
-            weightText.text = "${foodDB.stockAmount} ${foodDB.measurement}"
-            minText.text = "Мин.: ${foodDB.minimalAmount}"
-
             itemView.setOnClickListener {
                 itemClickListener.onClick(foodDB)
             }

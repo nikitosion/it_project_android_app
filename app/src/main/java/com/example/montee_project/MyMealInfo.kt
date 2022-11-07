@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -55,6 +56,8 @@ class MyMealInfo : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        var meals: List<MealDB> = listOf()
+
         val nameInput = binding.mealNameInput
         val imageLinkInput = binding.imageLinkInput
         val fullTimeInput = binding.fullTimeInput
@@ -72,6 +75,7 @@ class MyMealInfo : Fragment() {
         var diets = ""
         val instructionStepsList = binding.instructionsList
         val addIntstructionStepButton = binding.addInstructionButton
+        val deleteButton = binding.deleteButton
         val confirmButton = binding.confirmButton
 
         var lastIndexMeal = 0
@@ -103,9 +107,9 @@ class MyMealInfo : Fragment() {
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
 
         lifecycleScope.launch {
-            val meals = mealDao.getAllMeals()
+            meals = mealDao.getAllMeals()
             val emptyMeal =
-                meals.find { it.name == null || it.image == null || it.full_time == null || it.difficulty == null || it.calories == null || it.proteins == null || it.fats == null || it.carbohydrates == null}
+                meals.find { it.name == null || it.image == null || it.full_time == null || it.difficulty == null || it.calories == null || it.proteins == null || it.fats == null || it.carbohydrates == null }
 
             // Если во фрагмент передаётся id блюда, то загружаем его из базы данных, или
             // если id не передаётся, но есть созданное пустое (или частично пустое) блюдо, то
@@ -116,7 +120,7 @@ class MyMealInfo : Fragment() {
                     lastIndexMeal = mealId!!.toInt()
                 } else if (emptyMeal != null) {
                     Log.d("id", "I'm in empty")
-                    lastIndexMeal = emptyMeal.id
+                    lastIndexMeal = emptyMeal.id!!
                 }
                 val loadedMeal = meals.find { it.id == lastIndexMeal }
                 Log.d("id", lastIndexMeal.toString())
@@ -148,7 +152,7 @@ class MyMealInfo : Fragment() {
             // Если id не передаётся и нет пустого созданного блюдо, то создаём пустое блюдо
             else {
                 mealDao.addMeal(MealDB(0))
-                lastIndexMeal = mealDao.getAllMeals().last().id
+                lastIndexMeal = mealDao.getAllMeals().last().id!!
             }
 
             addIngredientButton.setOnClickListener {
@@ -165,7 +169,7 @@ class MyMealInfo : Fragment() {
                     if (mealId != null)
                         id = mealId!!.toInt()
                     else if (emptyMeal != null) {
-                        id = emptyMeal!!.id
+                        id = emptyMeal!!.id!!
                     }
                     Log.d("id", "Saved id: ${id.toString()}")
 
@@ -215,7 +219,7 @@ class MyMealInfo : Fragment() {
                         if (mealId != null)
                             id = mealId!!.toInt()
                         else if (emptyMeal != null) {
-                            id = emptyMeal!!.id
+                            id = emptyMeal!!.id!!
                         }
 
                         val editingMeal = MealDB(
@@ -264,7 +268,7 @@ class MyMealInfo : Fragment() {
                     if (mealId != null)
                         id = mealId!!.toInt()
                     else if (emptyMeal != null) {
-                        id = emptyMeal!!.id
+                        id = emptyMeal!!.id!!
                     }
 
                     val editingMeal = MealDB(
@@ -313,7 +317,7 @@ class MyMealInfo : Fragment() {
                         if (mealId != null)
                             id = mealId!!.toInt()
                         else if (emptyMeal != null) {
-                            id = emptyMeal!!.id
+                            id = emptyMeal!!.id!!
                         }
 
                         val editingMeal = MealDB(
@@ -383,7 +387,7 @@ class MyMealInfo : Fragment() {
                     .filter { it.meal_id == lastIndexMeal }.map { it.id }.joinToString(",")
 
                 val editingMeal = MealDB(
-                    0,
+                    null,
                     nameInput.text.toString(),
                     imageLinkInput.text.toString(),
                     fullTimeInput.text.toString().toIntOrNull(),
@@ -403,6 +407,25 @@ class MyMealInfo : Fragment() {
                 } else {
                     mealDao.addMeal(editingMeal)
                 }
+            }
+            val transaction = parentFragmentManager.beginTransaction()
+            transaction.add(
+                R.id.nav_host_fragment,
+                MyMealsPage.newInstance()
+            )
+            transaction.commit()
+        }
+        deleteButton.setOnClickListener {
+            if (mealId != null) {
+                lifecycleScope.launch {
+                    mealDao.removeMeal(meals.find { it.id == mealId?.toInt() }!!)
+                }
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    "Данного блюда не существует. Попробуйте нажать на блюдо в списке",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
             val transaction = parentFragmentManager.beginTransaction()
             transaction.add(

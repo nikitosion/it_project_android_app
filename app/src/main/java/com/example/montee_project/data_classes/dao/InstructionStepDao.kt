@@ -8,8 +8,10 @@ interface InstructionStepDao {
 
     @Insert
     suspend fun addInstructionStep(InstructionStep: InstructionStepDB)
+
     @Update
     suspend fun editInstructionStep(InstructionStep: InstructionStepDB)
+
     @Delete
     suspend fun removeInstructionStep(InstructionStep: InstructionStepDB)
 

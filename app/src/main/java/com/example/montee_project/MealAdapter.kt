@@ -27,7 +27,6 @@ class MealAdapter(private val mealList: List<Meal>, val itemClickListener: OnIte
 
         val mealImage: ImageView = view.findViewById(R.id.meal_image)
         val mealName: TextView = view.findViewById(R.id.meal_name)
-        val likeButton: ImageView = view.findViewById(R.id.like_icon)
         val likeCounter: TextView = view.findViewById(R.id.likes_counter)
         val cookingTime: TextView = view.findViewById(R.id.cooking_time)
     }

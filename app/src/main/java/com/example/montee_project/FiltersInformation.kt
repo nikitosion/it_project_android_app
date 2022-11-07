@@ -8,11 +8,18 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.montee_project.databinding.FragmentFiltersInformationBinding
 
+private const val ARG_PARAM1 = "suggested"
+
 class FiltersInformation : Fragment() {
+    private var suggested: Boolean? = null
+
     companion object {
-        fun newInstance(): FiltersInformation {
-            return FiltersInformation()
-        }
+        fun newInstance(suggested: Boolean) =
+            FiltersInformation().apply {
+                arguments = Bundle().apply {
+                    putBoolean(ARG_PARAM1, suggested)
+                }
+            }
     }
 
     private var _binding: FragmentFiltersInformationBinding? = null
@@ -24,6 +31,10 @@ class FiltersInformation : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFiltersInformationBinding.inflate(inflater, container, false)
+
+        arguments?.let {
+            suggested = it.getBoolean(ARG_PARAM1)
+        }
 
         return binding.root
     }
@@ -82,7 +93,9 @@ class FiltersInformation : Fragment() {
             val transaction = parentFragmentManager.beginTransaction()
             transaction.add(
                 R.id.nav_host_fragment,
-                SearchPage.newInstance(tags.joinToString(","), diets.joinToString(","))
+                SearchPage.newInstance(tags.joinToString(","), diets.joinToString(","),
+                    suggested == true
+                )
             )
             transaction.addToBackStack(null)
             transaction.commit()

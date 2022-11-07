@@ -11,14 +11,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.montee_project.data_classes.FoodDB
 import com.squareup.picasso.Picasso
 
-class ShoppingListFoodAdapter(private val foodList: List<FoodDB>) :
+class ShoppingListFoodAdapter(private val foodList: List<FoodDB>, val itemClickListener: ShoppingListFoodAdapter.OnItemClickListener) :
     RecyclerView.Adapter<ShoppingListFoodAdapter.FoodViewHolder>() {
 
     class FoodViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        // Функия для обработки нажатия
+        fun bind(foodDB: FoodDB, itemClickListener: ShoppingListFoodAdapter.OnItemClickListener) {
+            itemView.setOnClickListener {
+                itemClickListener.onClick(foodDB)
+            }
+        }
+
         val foodImage: ImageView = view.findViewById(R.id.food_image)
         val foodName: TextView = view.findViewById(R.id.food_name)
         val needToBuyText: TextView = view.findViewById(R.id.need_to_buy_text)
-        val boughtButton: Button = view.findViewById(R.id.bought_button)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodViewHolder {
@@ -35,6 +41,13 @@ class ShoppingListFoodAdapter(private val foodList: List<FoodDB>) :
         Picasso.get().load(foodDB.foodImage).into(holder.foodImage)
         holder.foodName.text = foodDB.foodName
         holder.needToBuyText.text = "+${foodDB.toBuyAmount} ${foodDB.measurement}"
+
+        holder.bind(foodDB, itemClickListener)
+    }
+
+    // Класс - обработчик нажатия
+    class OnItemClickListener(val clickListener: (food: FoodDB) -> Unit) {
+        fun onClick(food: FoodDB) = clickListener(food)
     }
 
     override fun getItemCount(): Int = foodList.size

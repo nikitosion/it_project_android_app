@@ -21,9 +21,10 @@ import io.ktor.serialization.gson.*
 import kotlinx.coroutines.launch
 import java.util.regex.Pattern
 
-private const val BASE_URL = "http://192.168.1.44:3000"
+private const val BASE_URL = "https://appmontee.herokuapp.com"
 private const val GET_USER_INFO = "$BASE_URL/users/get_user_info"
 private const val EDIT_USER_PASSWORD = "$BASE_URL/users/edit_user_password"
+private const val EDIT_USER_IMAGE = "$BASE_URL/users/edit_user_image"
 
 class UserInformation : Fragment() {
 
@@ -62,6 +63,7 @@ class UserInformation : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val profileImage = binding.profileImage
+        val imageLinkInput = binding.imageLinkInput
         val nameInput = binding.nameInput
         val emailInput = binding.emailInput
         val newPasswordInput = binding.newPasswordInput
@@ -111,7 +113,7 @@ class UserInformation : Fragment() {
                     if (userNewPass != User()) {
                         Toast.makeText(
                             activity,
-                            "Password was successfully changed!",
+                            "Пароль успешно изменён!",
                             Toast.LENGTH_LONG
                         ).show()
                         val transaction = parentFragmentManager.beginTransaction()
@@ -120,13 +122,31 @@ class UserInformation : Fragment() {
                     } else {
                         Toast.makeText(
                             activity,
-                            "Something went wrong!",
+                            "Что-то пошло не так!",
                             Toast.LENGTH_LONG
                         ).show()
                     }
                 }
             } else {
-                newPasswordInput.error = "New password is not validated or empty!"
+                newPasswordInput.error = "Пароль не соответсвует требованиям или поле пустое!"
+            }
+            if (imageLinkInput.text.toString() != "") {
+                lifecycleScope.launch {
+                    val newImageUser: User = try {
+                        client.post(EDIT_USER_IMAGE) {
+                            url {
+                                parameters.append("id", user.id.toString())
+                                parameters.append("image", imageLinkInput.text.toString())
+                            }
+                        }.body()
+                    } catch (e: JsonConvertException) {
+                        User()
+                    }
+                    Toast.makeText(requireContext(), "Изображение успешно изменено", Toast.LENGTH_SHORT).show()
+                    val transaction = parentFragmentManager.beginTransaction()
+                    transaction.add(R.id.nav_host_fragment, ProfilePage.newInstance())
+                    transaction.commit()
+                }
             }
         }
     }

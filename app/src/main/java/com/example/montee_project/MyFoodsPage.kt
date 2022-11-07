@@ -6,15 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
-import com.example.montee_project.data_classes.Food
-import com.example.montee_project.data_classes.Meal
 import com.example.montee_project.data_classes.MyFoodDB
-import com.example.montee_project.database.FoodStorage
-import com.example.montee_project.database.MealStorage
 import com.example.montee_project.database.MyFoodStorage
 import com.example.montee_project.databinding.FragmentMyFoodsPageBinding
 import kotlinx.coroutines.launch

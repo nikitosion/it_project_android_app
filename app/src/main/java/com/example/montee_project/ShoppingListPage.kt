@@ -60,7 +60,15 @@ class ShoppingListPage : Fragment() {
         lifecycleScope.launch {
             foodsDB = foodDao.getAllFoods().filter { it.toBuyAmount!! > 0 }
             Log.d(TAG, foodsDB.toString())
-            foodList.adapter = ShoppingListFoodAdapter(foodsDB)
+            foodList.adapter = ShoppingListFoodAdapter(foodsDB, ShoppingListFoodAdapter.OnItemClickListener { foodDB ->
+                val transaction = parentFragmentManager.beginTransaction()
+                transaction.add(
+                    R.id.nav_host_fragment,
+                    ShoppingListFoodInformation.newInstance(foodDB.foodName)
+                )
+                transaction.addToBackStack(null)
+                transaction.commit()
+            })
         }
     }
 }

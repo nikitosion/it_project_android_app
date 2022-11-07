@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey
 data class InstructionStepDB(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "instruction_step_id")
-    var id: Int,
+    var id: Int? = null,
     @ColumnInfo(name = "ingredients_ids")
     val ingredients_ids: String? = null,
     @ColumnInfo(name = "meal_id")

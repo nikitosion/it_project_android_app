@@ -2,17 +2,17 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "686b69a50fda9513fa22c16e53312e03",
+    "identityHash": "84ebb865c43496e69d6109cfedb372b5",
     "entities": [
       {
         "tableName": "InstructionSteps",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`instruction_step_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `ingredients_ids` TEXT, `meal_id` INTEGER, `step_text` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`instruction_step_id` INTEGER PRIMARY KEY AUTOINCREMENT, `ingredients_ids` TEXT, `meal_id` INTEGER, `step_text` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "instruction_step_id",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "ingredients_ids",
@@ -46,7 +46,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '686b69a50fda9513fa22c16e53312e03')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '84ebb865c43496e69d6109cfedb372b5')"
     ]
   }
 }

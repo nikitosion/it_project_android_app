@@ -8,8 +8,10 @@ interface MealDao {
 
     @Insert
     suspend fun addMeal(Meal: MealDB)
+
     @Update
     suspend fun editMeal(Meal: MealDB)
+
     @Delete
     suspend fun removeMeal(Meal: MealDB)
 

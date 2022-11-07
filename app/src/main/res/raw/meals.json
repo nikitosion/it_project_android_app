@@ -4,7 +4,7 @@
     "name": "Карбонара",
     "image": null,
     "full_time": 30,
-    "difficulty": "лёгкая",
+    "difficulty": "Лёгкая",
     "likes": 1031,
     "comments": 104,
     "ingredients": [
@@ -89,7 +89,7 @@
     "name": "Салат «Цезарь»",
     "image": null,
     "full_time": 30,
-    "difficulty": "лёгкая",
+    "difficulty": "Лёгкая",
     "likes": 5046,
     "comments": 451,
     "ingredients": [
@@ -256,7 +256,7 @@
     "name": "Сырники",
     "image": null,
     "full_time": 30,
-    "difficulty": "лёгкая",
+    "difficulty": "Лёгкая",
     "likes": 5890,
     "comments": 351,
     "ingredients": [

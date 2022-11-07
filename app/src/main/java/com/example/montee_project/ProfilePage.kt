@@ -19,7 +19,7 @@ import io.ktor.serialization.gson.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.launch
 
-private const val BASE_URL = "http://192.168.1.44:3000"
+private const val BASE_URL = "https://appmontee.herokuapp.com"
 private const val GET_USER_INFO = "$BASE_URL/users/get_user_info"
 
 class ProfilePage : Fragment() {
@@ -72,6 +72,7 @@ class ProfilePage : Fragment() {
         } else {
             lifecycleScope.launch {
                 user = try {
+                    // TODO: Исправить!!! Добавить id
                     client.get(GET_USER_INFO).body()
                 } catch (e: JsonConvertException) {
                     User()

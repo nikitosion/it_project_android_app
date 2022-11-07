@@ -8,8 +8,10 @@ interface FoodDao {
 
     @Insert
     suspend fun addFood(food: FoodDB)
+
     @Update
     suspend fun editFood(food: FoodDB)
+
     @Delete
     suspend fun removeFood(food: FoodDB)
 

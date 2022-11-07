@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.search_page_button -> {
                     if (supportFragmentManager.fragments.last() !is SearchPage) {
-                        openFragment(SearchPage.newInstance())
+                        openFragment(SearchPage.newInstance("", "",false))
                         toolbar.title = getString(R.string.search_page_label)
                     }
                     true

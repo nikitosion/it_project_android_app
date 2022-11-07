@@ -19,7 +19,7 @@ import io.ktor.serialization.gson.*
 import kotlinx.coroutines.launch
 import java.util.regex.Pattern
 
-private const val BASE_URL = "http://192.168.1.44:3000"
+private const val BASE_URL = "https://appmontee.herokuapp.com"
 private const val POST_USER = "$BASE_URL/users/registrate_user"
 
 class RegistrationPage : Fragment() {

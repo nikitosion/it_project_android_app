@@ -8,8 +8,10 @@ interface IngredientDao {
 
     @Insert
     suspend fun addIngredient(Ingredient: IngredientDB)
+
     @Update
     suspend fun editIngredient(Ingredient: IngredientDB)
+
     @Delete
     suspend fun removeIngredient(Ingredient: IngredientDB)
 

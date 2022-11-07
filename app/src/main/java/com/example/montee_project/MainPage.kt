@@ -20,7 +20,7 @@ import io.ktor.serialization.*
 import io.ktor.serialization.gson.*
 import kotlinx.coroutines.launch
 
-private const val BASE_URL = "http://192.168.1.44:3000"
+private const val BASE_URL = "https://appmontee.herokuapp.com"
 private const val GET_MEALS = "$BASE_URL/meals/get_meals"
 
 class MainPage : Fragment() {
@@ -70,7 +70,7 @@ class MainPage : Fragment() {
                 val transaction = parentFragmentManager.beginTransaction()
                 transaction.add(
                     R.id.nav_host_fragment,
-                    MyMealInfo.newInstance(meal.id)
+                    MealReciepePage.newInstance(meal.id.toString())
                 )
                 transaction.addToBackStack(null)
                 transaction.commit()
@@ -86,7 +86,7 @@ class MainPage : Fragment() {
                 val transaction = parentFragmentManager.beginTransaction()
                 transaction.add(
                     R.id.nav_host_fragment,
-                    MyMealInfo.newInstance(meal.id)
+                    MealReciepePage.newInstance(meal.id.toString())
                 )
                 transaction.addToBackStack(null)
                 transaction.commit()
@@ -102,7 +102,7 @@ class MainPage : Fragment() {
                 val transaction = parentFragmentManager.beginTransaction()
                 transaction.add(
                     R.id.nav_host_fragment,
-                    MyMealInfo.newInstance(meal.id)
+                    MealReciepePage.newInstance(meal.id.toString())
                 )
                 transaction.addToBackStack(null)
                 transaction.commit()
@@ -118,7 +118,7 @@ class MainPage : Fragment() {
                 val transaction = parentFragmentManager.beginTransaction()
                 transaction.add(
                     R.id.nav_host_fragment,
-                    MyMealInfo.newInstance(meal.id)
+                    MealReciepePage.newInstance(meal.id.toString())
                 )
                 transaction.addToBackStack(null)
                 transaction.commit()

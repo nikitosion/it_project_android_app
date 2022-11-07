@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/ic_arrow_back_green"
-        android:text="К рецепту"
+        android:text="Вернуться"
         android:textAllCaps="false"
         android:textFontWeight="500"
         android:textSize="16sp"
@@ -32,7 +32,7 @@
         tools:text="Салат «Цезарь»" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/meal_photo_card"
+        android:id="@+id/meal_image_card"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -42,7 +42,7 @@
         app:layout_constraintTop_toBottomOf="@id/meal_name">
 
         <ImageView
-            android:id="@+id/meal_photo"
+            android:id="@+id/meal_image"
             android:layout_width="match_parent"
             android:layout_height="180dp"
             android:scaleType="centerCrop"
@@ -58,19 +58,20 @@
         android:textFontWeight="500"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/meal_photo_card" />
+        app:layout_constraintTop_toBottomOf="@id/meal_image_card" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/comments_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:clipToPadding="false"
+        app:layout_constraintBottom_toTopOf="@id/comment_block"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/comments_text"
-        app:layout_constraintBottom_toTopOf="@id/comment_block"
         tools:itemCount="4"
         tools:listitem="@layout/comment_item" />
 
@@ -78,26 +79,30 @@
         android:id="@+id/comment_block"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:background="@color/white"
         android:orientation="horizontal"
         android:paddingBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <EditText
+            android:id="@+id/comment_input"
             android:layout_width="wrap_content"
-            android:inputType="textMultiLine"
             android:layout_height="match_parent"
+            android:layout_marginEnd="8dp"
+            android:hint="Напишите комментарий"
             android:layout_weight="1"
-            android:textColor="@color/green_700"
-            android:layout_marginEnd="8dp"/>
+            android:inputType="textMultiLine"
+            android:textColor="@color/green_700" />
+
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/comment_send_button"
             android:layout_width="50dp"
             android:layout_height="60dp"
-            android:drawableTint="@color/white"
             android:backgroundTint="@color/orange_700"
-            app:cornerRadius="15dp"
-            android:drawableBottom="@drawable/ic_send_green"/>
+            android:drawableBottom="@drawable/ic_send_green"
+            android:drawableTint="@color/white"
+            app:cornerRadius="15dp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

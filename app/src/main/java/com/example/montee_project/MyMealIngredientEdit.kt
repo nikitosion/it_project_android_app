@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.example.montee_project.data_classes.Food
@@ -32,7 +33,7 @@ import kotlinx.coroutines.launch
 private const val ARG_PARAM1 = "meal_id"
 private const val ARG_PARAM2 = "ingredient_id"
 
-private const val BASE_URL = "http://192.168.1.44:3000"
+private const val BASE_URL = "https://appmontee.herokuapp.com"
 private const val GET_FOODS = "$BASE_URL/foods/get_foods"
 
 class MyMealIngredientEdit : Fragment() {
@@ -40,7 +41,6 @@ class MyMealIngredientEdit : Fragment() {
     private var ingredientId: Int? = null
 
     companion object {
-        @JvmStatic
         fun newInstance(meal_id: String? = null, ingredientId: Int? = null) =
             MyMealIngredientEdit().apply {
                 arguments = Bundle().apply {
@@ -101,6 +101,7 @@ class MyMealIngredientEdit : Fragment() {
         val foodImage = binding.foodImage
         val amountSlider = binding.amountSlider
         val amountValue = binding.amountValue
+        val deleteButton = binding.deleteButton
         val confirmButton = binding.confirmButton
 
         var foods: List<Food> = listOf()
@@ -183,7 +184,7 @@ class MyMealIngredientEdit : Fragment() {
         confirmButton.setOnClickListener {
             lifecycleScope.launch {
                 val editingIngredient = IngredientDB(
-                    0,
+                    null,
                     foods.find { it.name == foodSpinner.selectedItem.toString() }?.id,
                     mealId?.toInt(),
                     foods.find { it.name == foodSpinner.selectedItem.toString() }?.name,
@@ -209,6 +210,21 @@ class MyMealIngredientEdit : Fragment() {
                 )
                 transaction.commit()
             }
+        }
+        deleteButton.setOnClickListener {
+            if (ingredientId != null) {
+                lifecycleScope.launch {
+                    ingredientDao.removeIngredient(ingredientsDB.find { it.id == ingredientId }!!)
+                }
+            } else {
+                Toast.makeText(requireContext(), "Данного продукта не существует. Попробуйте нажать на продукт в списке", Toast.LENGTH_SHORT).show()
+            }
+            val transaction = parentFragmentManager.beginTransaction()
+            transaction.add(
+                com.example.montee_project.R.id.nav_host_fragment,
+                MyMealInfo.newInstance(mealId)
+            )
+            transaction.commit()
         }
     }
 

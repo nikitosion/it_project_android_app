@@ -2,17 +2,17 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "ca72931685481e0f1a03d6b2722aa920",
+    "identityHash": "8823ce476b64b3714f4559700473c4b0",
     "entities": [
       {
         "tableName": "Ingredients",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ingredient_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `food_id` TEXT, `meal_id` INTEGER, `ingredient_name` TEXT, `measurement` TEXT, `amount` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ingredient_id` INTEGER PRIMARY KEY AUTOINCREMENT, `food_id` TEXT, `meal_id` INTEGER, `ingredient_name` TEXT, `measurement` TEXT, `amount` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "ingredient_id",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "food_id",
@@ -58,7 +58,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ca72931685481e0f1a03d6b2722aa920')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8823ce476b64b3714f4559700473c4b0')"
     ]
   }
 }

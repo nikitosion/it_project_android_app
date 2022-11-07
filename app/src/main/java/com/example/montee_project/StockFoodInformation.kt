@@ -13,7 +13,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.example.montee_project.data_classes.Food
 import com.example.montee_project.data_classes.FoodDB
+import com.example.montee_project.data_classes.MyFoodDB
 import com.example.montee_project.database.FoodStorage
+import com.example.montee_project.database.MyFoodStorage
 import com.example.montee_project.databinding.FragmentStockFoodInformationBinding
 import com.squareup.picasso.Picasso
 import io.ktor.client.*
@@ -24,7 +26,7 @@ import io.ktor.serialization.*
 import io.ktor.serialization.gson.*
 import kotlinx.coroutines.launch
 
-private const val BASE_URL = "http://192.168.1.44:3000"
+private const val BASE_URL = "https://appmontee.herokuapp.com"
 private const val GET_FOODS = "$BASE_URL/foods/get_foods"
 
 private const val ARG_PARAM1 = "recievedFoodName"
@@ -75,9 +77,10 @@ class StockFoodInformation : Fragment() {
 
         val foodSpinner = binding.foodSelector
         val foodImage = binding.foodImage
+        val deleteFoodButton = binding.deleteButton
         var foodsDB = listOf<FoodDB>()
 
-        var foods: List<Food> = listOf()
+        var foods: MutableList<Food> = mutableListOf()
 
         // Загружаем продукты из удалённой и локальной баз данных
         lifecycleScope.launch {
@@ -85,9 +88,27 @@ class StockFoodInformation : Fragment() {
                 try {
                     client.get(GET_FOODS).body()
                 } catch (e: JsonConvertException) {
-                    listOf()
+                    mutableListOf()
                 }
+
             foodsDB = foodDao.getAllFoods().filter { it.stockAmount!! > 0 }
+
+            val myFoodDB = Room.databaseBuilder(requireContext(), MyFoodStorage::class.java, "my_food_database")
+                .build()
+            val myFoodDao = myFoodDB.foodDao()
+            val myFoodsDB = myFoodDao.getAllFoods()
+            for (myFood in myFoodsDB) {
+                val newFood = Food(
+                    myFood.id.toString(),
+                    myFood.foodName,
+                    myFood.foodImage,
+                    myFood.measurement,
+                    0.0,
+                    0.0,
+                    0.0
+                )
+                foods.add(newFood)
+            }
 
             // Состовляем и применяем список для выпадающего меню
             val adapter =
@@ -186,7 +207,7 @@ class StockFoodInformation : Fragment() {
                     foodDao.editFood(updatingFoodDB)
                 } else {
                     val addingFoodDB = FoodDB(
-                        0,
+                        null,
                         editingFood?.image.toString(),
                         editingFood?.name.toString(),
                         editingFood?.measurement.toString(),
@@ -203,10 +224,22 @@ class StockFoodInformation : Fragment() {
                 )
                 transaction.commit()
             }
-//          Служебный вывод
-//            val text =
-//                "Confirmed\n Item ${foodSpinner.selectedItem} was created.\n Stock: ${inStockAmountValue.text} ${measurementText.text}\n Min. weight: ${minAmountValue.text} ${measurementText.text}"
-//            Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
+        }
+        deleteFoodButton.setOnClickListener {
+            val stockFood = foodsDB.find { it.foodName == foodSpinner.selectedItem.toString() }
+            if (stockFood != null) {
+                lifecycleScope.launch {
+                    foodDao.removeFood(stockFood)
+                }
+            } else {
+                Toast.makeText(requireContext(), "Вы ещё не добавили этот продукт", Toast.LENGTH_SHORT).show()
+            }
+            val transaction = parentFragmentManager.beginTransaction()
+            transaction.add(
+                R.id.nav_host_fragment,
+                AddFoodPage.newInstance()
+            )
+            transaction.commit()
         }
     }
 }

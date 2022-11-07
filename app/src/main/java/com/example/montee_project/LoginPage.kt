@@ -20,7 +20,7 @@ import io.ktor.serialization.gson.*
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 
-private const val BASE_URL = "http://192.168.1.44:3000"
+private const val BASE_URL = "https://appmontee.herokuapp.com"
 private const val LOGIN_USER = "$BASE_URL/users/login_user"
 
 class LoginPage : Fragment() {

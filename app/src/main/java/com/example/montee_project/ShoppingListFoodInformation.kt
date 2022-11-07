@@ -15,6 +15,7 @@ import androidx.room.Room
 import com.example.montee_project.data_classes.Food
 import com.example.montee_project.data_classes.FoodDB
 import com.example.montee_project.database.FoodStorage
+import com.example.montee_project.database.MyFoodStorage
 import com.example.montee_project.databinding.FragmentShoppingListFoodInformationBinding
 import com.squareup.picasso.Picasso
 import io.ktor.client.*
@@ -25,7 +26,7 @@ import io.ktor.serialization.*
 import io.ktor.serialization.gson.*
 import kotlinx.coroutines.launch
 
-private const val BASE_URL = "http://192.168.1.44:3000"
+private const val BASE_URL = "https://appmontee.herokuapp.com"
 private const val GET_FOODS = "$BASE_URL/foods/get_foods"
 
 private const val ARG_PARAM1 = "recievedFoodName"
@@ -35,7 +36,6 @@ class ShoppingListFoodInformation : Fragment() {
     private var recievedFoodName: String? = null
 
     companion object {
-        @JvmStatic
         fun newInstance(foodName: String? = null) =
             ShoppingListFoodInformation().apply {
                 arguments = Bundle().apply {
@@ -77,8 +77,10 @@ class ShoppingListFoodInformation : Fragment() {
         val foodSpinner = binding.foodSelector
         val foodImage = binding.foodImage
         var foodsDB = listOf<FoodDB>()
+        val suggestListItem = binding.suggestListItem
+        val deleteButton = binding.deleteButton
 
-        var foods: List<Food> = listOf()
+        var foods: MutableList<Food> = mutableListOf()
 
         // Загружаются продукты из удалённой и локально баз данных
         lifecycleScope.launch {
@@ -86,10 +88,35 @@ class ShoppingListFoodInformation : Fragment() {
                 try {
                     client.get(GET_FOODS).body()
                 } catch (e: JsonConvertException) {
-                    listOf()
+                    mutableListOf()
                 }
             Log.d("list", foods.toString())
             foodsDB = foodDao.getAllFoods().filter { it.toBuyAmount!! > 0 }
+
+            val needFood = foodDao.getAllFoods().find { it.stockAmount!! < it.minimalAmount!! }
+
+            if (needFood != null) {
+                val needFoodString =
+                    context?.getString(com.example.montee_project.R.string.need_food_string)
+                suggestListItem.text = String.format(needFoodString.toString(), needFood?.foodName)
+            }
+
+            val myFoodDB = Room.databaseBuilder(requireContext(), MyFoodStorage::class.java, "my_food_database")
+                .build()
+            val myFoodDao = myFoodDB.foodDao()
+            val myFoodsDB = myFoodDao.getAllFoods()
+            for (myFood in myFoodsDB) {
+                val newFood = Food(
+                    myFood.id.toString(),
+                    myFood.foodName,
+                    myFood.foodImage,
+                    myFood.measurement,
+                    0.0,
+                    0.0,
+                    0.0
+                )
+                foods.add(newFood)
+            }
 
             // Создаётся и применяется список для выпадающего меню
             val adapter =
@@ -180,7 +207,7 @@ class ShoppingListFoodInformation : Fragment() {
                     foodDao.editFood(updatingFoodDB)
                 } else {
                     val addingFoodDB = FoodDB(
-                        0,
+                        null,
                         editingFood?.image.toString(),
                         editingFood?.name.toString(),
                         editingFood?.measurement.toString(),
@@ -202,6 +229,20 @@ class ShoppingListFoodInformation : Fragment() {
 //                "Confirmed\n Item ${foodSpinner.selectedItem} was created.\n Stock: ${toBuyAmountValue.text} ${stockAmountText.text}\n"
 //            Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
         }
-
+        deleteButton.setOnClickListener {
+            if (recievedFoodName != null) {
+                lifecycleScope.launch {
+                    foodDao.removeFood(foodsDB.find { it.foodName == recievedFoodName }!!)
+                }
+            } else {
+                Toast.makeText(requireContext(), "Данного продукты не существует. Попробуйте нажать на продукт в списке", Toast.LENGTH_SHORT).show()
+            }
+            val transaction = parentFragmentManager.beginTransaction()
+            transaction.add(
+                com.example.montee_project.R.id.nav_host_fragment,
+                ShoppingListPage.newInstance()
+            )
+            transaction.commit()
+        }
     }
 }
