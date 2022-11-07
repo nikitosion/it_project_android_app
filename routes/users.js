@@ -42,18 +42,28 @@ router.post("/registrate_user", async (req, res) => {
   }
 });
 
-router.post("/edit_user_info", async (req, res) => {
-  let image_link =  req.query.image
+router.post("/edit_user_password", async (req, res) => {
   let user_id = req.query.id;
   let new_password = req.query.new_password;
   let user = await usersDatabase.update({
-    where: {id : user_id},
+    where: { id: user_id },
     data: {
-      image: image_link,
-      password: new_password
+      password: new_password,
     },
   });
-  res.send(user)
+  res.send(user);
+});
+
+router.post("/edit_user_image", async (req, res) => {
+  let user_id = req.query.id;
+  let new_image_link = req.query.image;
+  let user = await usersDatabase.update({
+    where: { id: user_id },
+    data: {
+      image: new_image_link,
+    },
+  });
+  res.send(user);
 });
 
 module.exports = router;
