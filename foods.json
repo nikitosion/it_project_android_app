@@ -1,0 +1,281 @@
+[
+  {
+    "id": "5786ca32349b4fa59a0c3f3ff10956a7",
+    "name": "Салат «Айсберг»",
+    "image": null,
+    "measurement": "кг",
+    "minimal_amount": 0.5,
+    "stock_amount": 0.3,
+    "to_buy_amount": 0.7
+  },
+  {
+    "id": "ed1b2aa4d619485695ce12016fc04194",
+    "name": "Спагетти",
+    "image": null,
+    "measurement": "кг",
+    "minimal_amount": 0.25,
+    "stock_amount": 0.5,
+    "to_buy_amount": 0.4
+  },
+  {
+    "id": "50ee3f8342af4c388468555b3038b5f5",
+    "name": "Сливочное масло",
+    "image": null,
+    "measurement": "кг",
+    "minimal_amount": 0.3,
+    "stock_amount": 0.5,
+    "to_buy_amount": 0.3
+  },
+  {
+    "id": "f0986f3c2f4d406aba1844d947b3712f",
+    "name": "Чеснок",
+    "image": null,
+    "measurement": "зубч",
+    "minimal_amount": 4,
+    "stock_amount": 6,
+    "to_buy_amount": 5
+  },
+  {
+    "id": "3c7222856e29423097ab134265543a58",
+    "name": "Красный лук",
+    "image": null,
+    "measurement": "кг",
+    "minimal_amount": 0.2,
+    "stock_amount": 0.3,
+    "to_buy_amount": 0.1
+  },
+  {
+    "id": "9e65482a865343349ec34a11c443f6f5",
+    "name": "Бекон",
+    "image": null,
+    "measurement": "кг",
+    "minimal_amount": 0.05,
+    "stock_amount": 0.2,
+    "to_buy_amount": 0.4
+  },
+  {
+    "id": "537560dd7c7148538d2298c74ab6383d",
+    "name": "Сливки 20%-ные",
+    "image": null,
+    "measurement": "мл",
+    "minimal_amount": 200,
+    "stock_amount": 400,
+    "to_buy_amount": 100
+  },
+  {
+    "id": "96b482611c9242b6b8e8d8bd6dbd0ae7",
+    "name": "Сыр пармезан",
+    "image": null,
+    "measurement": "кг",
+    "minimal_amount": 0.3,
+    "stock_amount": 0.4,
+    "to_buy_amount": 0.5
+  },
+  {
+    "id": "ebd2a323ab584a2a8303915532956ac7",
+    "name": "Куриное яйцо",
+    "image": null,
+    "measurement": "шт",
+    "minimal_amount": 5,
+    "stock_amount": 10,
+    "to_buy_amount": 20
+  },
+  {
+    "id": "ab2158bf6e5b4055971231c639130f15",
+    "name": "Соль",
+    "image": null,
+    "measurement": "г",
+    "minimal_amount": 300,
+    "stock_amount": 700,
+    "to_buy_amount": 500
+  },
+  {
+    "id": "2caf284838a7418eae1a628243c1bcfe",
+    "name": "Молотый чёрный перец",
+    "image": null,
+    "measurement": "г",
+    "minimal_amount": 50,
+    "stock_amount": 150,
+    "to_buy_amount": 200
+  },
+  {
+    "id": "ae2646672cf548dc99e942f27d42f9a0",
+    "name": "Зелёный салат",
+    "image": null,
+    "measurement": "кг",
+    "minimal_amount": 0.15,
+    "stock_amount": 0.2,
+    "to_buy_amount": 0.3
+  },
+  {
+    "id": "02fa3d7c6a8b45b7a29996dc7908c30d",
+    "name": "Помидоры",
+    "image": null,
+    "measurement": "кг",
+    "minimal_amount": 0.2,
+    "stock_amount": 0.4,
+    "to_buy_amount": 0.3
+  },
+  {
+    "id": "b35100d294464163aa817e3f39c9ff9d",
+    "name": "Куриное филе",
+    "image": null,
+    "measurement": "кг",
+    "minimal_amount": 0.4,
+    "stock_amount": 0.6,
+    "to_buy_amount": 0.3
+  },
+  {
+    "id": "17937df19169405fba116f89ca5d94b6",
+    "name": "Белый хлеб",
+    "image": null,
+    "measurement": "кг",
+    "minimal_amount": 0.2,
+    "stock_amount": 0.3,
+    "to_buy_amount": 0.1
+  },
+  {
+    "id": "a9f248172ad74aeda58850855e0254fd",
+    "name": "Соус «Цезарь»",
+    "image": null,
+    "measurement": "кг",
+    "minimal_amount": 0.2,
+    "stock_amount": 0.0,
+    "to_buy_amount": 0.5
+  },
+  {
+    "id": "0e2004b17df44e7f8f6c9cca99df1d34",
+    "name": "Оливковое масло",
+    "image": null,
+    "measurement": "кг",
+    "minimal_amount": 0.1,
+    "stock_amount": 0.5,
+    "to_buy_amount": 0.5
+  },
+  {
+    "id": "175db48632984fbea72e0b1a88c1b51a",
+    "name": "Репчатый лук",
+    "image": null,
+    "measurement": "кг",
+    "minimal_amount": 0.1,
+    "stock_amount": 0.3,
+    "to_buy_amount": 0.3
+  },
+  {
+    "id": "d2edb656f51346c19e22541e727f1c1e",
+    "name": "Морковь",
+    "image": null,
+    "measurement": "кг",
+    "minimal_amount": 0.3,
+    "stock_amount": 0.5,
+    "to_buy_amount": 0.4
+  },
+  {
+    "id": "9598f8383b2d4373acd24702d69f7a67",
+    "name": "Сельдерей",
+    "image": null,
+    "measurement": "кг",
+    "minimal_amount": 0.1,
+    "stock_amount": 0.0,
+    "to_buy_amount": 0.1
+  },
+  {
+    "id": "e41e104ce68a46d58a705655c9544eaf",
+    "name": "Красное сухое вино",
+    "image": null,
+    "measurement": "л",
+    "minimal_amount": 0.5,
+    "stock_amount": 0.5,
+    "to_buy_amount": 0.5
+  },
+  {
+    "id": "96290af4e68046acbffc157bc94a3779",
+    "name": "Говяжий фарш",
+    "image": null,
+    "measurement": "кг",
+    "minimal_amount": 0.3,
+    "stock_amount": 0.35,
+    "to_buy_amount": 0.5
+  },
+  {
+    "id": "17937df19169405fba116f89ca5d94b6",
+    "name": "Говяжий бульон",
+    "image": null,
+    "measurement": "мл",
+    "minimal_amount": 0,
+    "stock_amount": 0,
+    "to_buy_amount": 0
+  },
+  {
+    "id": "cab3574a58e54cb78733fdef3e950a6b",
+    "name": "Консервированные помидоры",
+    "image": null,
+    "measurement": "кг",
+    "minimal_amount": 0.2,
+    "stock_amount": 0.2,
+    "to_buy_amount": 0.1
+  },
+  {
+    "id": "7db7a5ab8af9451791197676612d962b",
+    "name": "Петрушка",
+    "image": null,
+    "measurement": "кг",
+    "minimal_amount": 0.1,
+    "stock_amount": 0.1,
+    "to_buy_amount": 0
+  },
+  {
+    "id": "f0a0b1998f7c4cb58ee60f4ab2370013",
+    "name": "Творог",
+    "image": null,
+    "measurement": "кг",
+    "minimal_amount": 0.3,
+    "stock_amount": 0.5,
+    "to_buy_amount": 0
+  },
+  {
+    "id": "231ea99c956e4463aec50b9422c4b062",
+    "name": "Сахар",
+    "image": null,
+    "measurement": "кг",
+    "minimal_amount": 0.5,
+    "stock_amount": 0.5,
+    "to_buy_amount": 0
+  },
+  {
+    "id": "5cae3c032ae5465b915c5fe1fb083114",
+    "name": "Мука",
+    "image": null,
+    "measurement": "кг",
+    "minimal_amount": 0.5,
+    "stock_amount": 1,
+    "to_buy_amount": 0
+  },
+  {
+    "id": "2903bc7420fe4eebb8e97b8e12c696b8",
+    "name": "Растительное масло",
+    "image": null,
+    "measurement": "мл",
+    "minimal_amount": 100,
+    "stock_amount": 700,
+    "to_buy_amount": 0
+  },
+  {
+    "id": "6e3ef856deb1428585bf8b6d90a6a032",
+    "name": "Ванилин",
+    "image": null,
+    "measurement": "мл",
+    "minimal_amount": 1,
+    "stock_amount": 10,
+    "to_buy_amount": 0
+  },
+  {
+    "id": "2740329909d94b7f95b77ebed6b1e18e",
+    "name": "Сметана",
+    "image": null,
+    "measurement": "г",
+    "minimal_amount": 50,
+    "stock_amount": 200,
+    "to_buy_amount": 0
+  }
+]

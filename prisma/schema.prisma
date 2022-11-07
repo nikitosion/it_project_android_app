@@ -1,0 +1,76 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Meal {
+  id              String @id @default(cuid())
+  name            String
+  image           String
+  full_time       Int
+  difficulty      String
+  likes           Int
+  comments        Int
+  ingredients_ids String
+  calories        Int
+  proteins        Int
+  fats            Int
+  carbohydrates   Int
+  diets           String
+  tags            String @default("")
+  instruction_ids String
+}
+
+model Food {
+  id          String @id @default(cuid())
+  name        String
+  image       String
+  measurement String
+}
+
+model Ingredient {
+  id          String @id @default(cuid())
+  name        String @default("")
+  measurement String @default("")
+  food_id     String
+  amount      Float
+}
+
+model InstructionStep {
+  id              String @id @default(cuid())
+  ingredients_ids String
+  step_text       String
+}
+
+model User {
+  id             String @id @default(cuid())
+  name           String
+  image          String
+  email          String
+  password       String
+  liked_meal_ids String
+  comments_ids   String
+}
+
+model Comment {
+  id         String @id @default(cuid())
+  meal_id    String
+  user_id    String
+  user_name  String
+  user_image String
+  date       String
+  text       String
+}
+
+model Like {
+  id      String @id @default(cuid())
+  meal_id String
+  user_id String
+}
